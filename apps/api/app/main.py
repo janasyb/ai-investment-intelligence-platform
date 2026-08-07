@@ -1,25 +1,30 @@
 from fastapi import FastAPI
 
+from app.core.config.settings import settings
+
 app = FastAPI(
-    title="AI Investment Intelligence Platform API",
-    description="Backend API for AIIP Technologies",
-    version="0.1.0-alpha.2",
+    title=settings.app_name,
+    version=settings.app_version,
+    docs_url=settings.docs_url,
+    redoc_url=settings.redoc_url,
+    openapi_url=settings.openapi_url,
 )
 
 
-@app.get("/")
+@app.get("/", tags=["System"])
 async def root():
     return {
         "company": "AIIP Technologies",
-        "product": "AI Investment Intelligence Platform",
-        "platform": "AIIP",
+        "application": settings.app_name,
+        "version": settings.app_version,
+        "environment": settings.environment.value,
         "status": "running",
-        "version": "0.1.0-alpha.2",
     }
 
 
-@app.get("/health")
+@app.get("/health", tags=["System"])
 async def health():
     return {
-        "status": "healthy"
+        "status": "healthy",
+        "environment": settings.environment.value,
     }
