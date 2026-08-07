@@ -1,0 +1,68 @@
+[project]
+name = "aiip-api"
+version = "0.1.0-alpha.2"
+description = "AI Investment Intelligence Platform API"
+readme = "README.md"
+requires-python = ">=3.14"
+
+authors = [
+    { name = "AIIP Technologies" }
+]
+
+license = { text = "Proprietary" }
+
+dependencies = [
+    "fastapi>=0.116.1",
+    "uvicorn[standard]>=0.35.0",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "sqlalchemy>=2.0.43",
+    "alembic>=1.16.5",
+    "psycopg[binary]>=3.2.10",
+    "redis>=6.4.0",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.1.1",
+    "structlog>=25.4.0"
+]
+
+[project.optional-dependencies]
+
+dev = [
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.12.10",
+    "black>=25.1.0",
+    "mypy>=1.17.1"
+]
+
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ["py314"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+warn_unused_configs = true
