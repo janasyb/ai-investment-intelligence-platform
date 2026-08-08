@@ -7,6 +7,7 @@ from app.exceptions import (
     aiip_exception_handler,
     unhandled_exception_handler,
 )
+from app.middleware import configure_middleware
 
 configure_logging()
 
@@ -17,6 +18,8 @@ app = FastAPI(
     redoc_url=settings.redoc_url,
     openapi_url=settings.openapi_url,
 )
+
+configure_middleware(app)
 
 app.add_exception_handler(
     AIIPException,
