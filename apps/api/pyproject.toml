@@ -22,7 +22,9 @@ dependencies = [
     "redis>=6.4.0",
     "httpx>=0.28.1",
     "python-dotenv>=1.1.1",
-    "structlog>=25.4.0"
+    "structlog>=25.4.0",
+    "PyJWT>=2.10.1",
+    "pwdlib[argon2]>=0.2.1",
 ]
 
 [project.optional-dependencies]
@@ -56,6 +58,10 @@ select = [
     "UP",
     "B"
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"app/security/dependencies.py" = ["B008"]
+"app/security/passwords.py" = ["B008"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
