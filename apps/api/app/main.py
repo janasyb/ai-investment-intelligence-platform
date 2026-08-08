@@ -2,6 +2,11 @@ from fastapi import FastAPI
 
 from app.core.config.settings import settings
 from app.core.logging import configure_logging
+from app.exceptions import (
+    AIIPException,
+    aiip_exception_handler,
+    unhandled_exception_handler,
+)
 
 configure_logging()
 
@@ -11,6 +16,16 @@ app = FastAPI(
     docs_url=settings.docs_url,
     redoc_url=settings.redoc_url,
     openapi_url=settings.openapi_url,
+)
+
+app.add_exception_handler(
+    AIIPException,
+    aiip_exception_handler,
+)
+
+app.add_exception_handler(
+    Exception,
+    unhandled_exception_handler,
 )
 
 
