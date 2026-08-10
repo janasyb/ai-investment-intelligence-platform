@@ -1,10 +1,11 @@
-﻿"""
+"""
 FastAPI exception handlers for AIIP application exceptions.
 """
 
 from __future__ import annotations
 
 import logging
+from typing import cast
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -16,24 +17,26 @@ logger = logging.getLogger(__name__)
 
 async def aiip_exception_handler(
     request: Request,
-    exc: AIIPException,
+    exc: Exception,
 ) -> JSONResponse:
-    """Convert an AIIP exception into a consistent API response."""
+    """Convert an AIIP application exception into a consistent API response."""
+
+    aiip_exc = cast(AIIPException, exc)
 
     logger.warning(
         "Application exception: code=%s path=%s message=%s",
-        exc.code,
+        aiip_exc.code,
         request.url.path,
-        exc.message,
+        aiip_exc.message,
     )
 
     return JSONResponse(
-        status_code=exc.status_code,
+        status_code=aiip_exc.status_code,
         content={
             "error": {
-                "code": exc.code,
-                "message": exc.message,
-                "details": exc.details,
+                "code": aiip_exc.code,
+                "message": aiip_exc.message,
+                "details": aiip_exc.details,
             }
         },
     )
@@ -47,7 +50,6 @@ async def unhandled_exception_handler(
 
     logger.exception(
         "Unhandled application exception: path=%s",
-        request.url.path,
     )
 
     return JSONResponse(

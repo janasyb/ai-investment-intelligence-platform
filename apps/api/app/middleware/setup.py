@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from app.middleware.request_id import RequestIDMiddleware
 from app.middleware.request_logging import RequestLoggingMiddleware
 from app.middleware.security_headers import SecurityHeadersMiddleware
+from app.telemetry.middleware import TelemetryMiddleware
 
 
 def configure_middleware(app: FastAPI) -> None:
@@ -17,3 +18,4 @@ def configure_middleware(app: FastAPI) -> None:
     app.add_middleware(SecurityHeadersMiddleware)
     app.add_middleware(RequestLoggingMiddleware)
     app.add_middleware(RequestIDMiddleware)
+    app.add_middleware(TelemetryMiddleware)

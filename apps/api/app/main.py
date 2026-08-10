@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.routes.health import router as health_router
 from app.core.config.settings import settings
 from app.core.logging import configure_logging
 from app.exceptions import (
@@ -33,7 +34,7 @@ app.add_exception_handler(
 
 
 @app.get("/", tags=["System"])
-async def root():
+async def root() -> dict[str, str]:
     return {
         "company": "AIIP Technologies",
         "application": settings.app_name,
@@ -43,9 +44,4 @@ async def root():
     }
 
 
-@app.get("/health", tags=["System"])
-async def health():
-    return {
-        "status": "healthy",
-        "environment": settings.environment.value,
-    }
+app.include_router(health_router)

@@ -6,10 +6,10 @@ Provides a unique correlation ID for every HTTP request.
 
 from __future__ import annotations
 
+from typing import cast
 from uuid import uuid4
 
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
-
 
 REQUEST_ID_HEADER = "X-Request-ID"
 
@@ -50,7 +50,13 @@ class RequestIDMiddleware:
     @staticmethod
     def _get_request_id(scope: Scope) -> str:
         """Return an incoming request ID or generate one."""
-        for name, value in scope.get("headers", []):
+
+        headers = cast(
+            list[tuple[bytes, bytes]],
+            scope.get("headers", []),
+        )
+
+        for name, value in headers:
             if name.lower() == REQUEST_ID_HEADER.lower().encode("latin-1"):
                 try:
                     decoded = value.decode("latin-1").strip()
