@@ -2,40 +2,61 @@
 
 ## Status
 
-Research has not yet produced sufficient evidence.
+EARLY DISCOVERY
 
-## Confirmed Problems
+## Current Sample
 
-_To be populated from repeated customer evidence._
+The current research sample consists of investment-related posts discovered primarily on X and Reddit.
 
-## Potential Problems
+## Current Pattern
 
-_To be populated._
+Several people have been observed actively asking:
 
-## Repeated Investor Behaviors
+- What should I buy?
+- Where should I put available capital?
+- Should I hold or sell?
+- How should I evaluate an exchange?
+- How can I make better investment decisions?
+- Why is available crypto information difficult to interpret?
 
-_To be populated._
+## Important Qualification
 
-## Existing Solutions
+Not every person asking an investment question is an AIIP customer.
 
-_To be populated._
+A person must have a meaningful connection to digital assets before being classified as a confirmed AIIP prospect.
 
-## Willingness To Pay
+## Current Leading Problem Hypothesis
 
-_To be populated._
+Digital-asset investors may need structured intelligence to evaluate evidence before making BUY, HOLD, SELL, or WAIT decisions.
 
-## Strongest Evidence
+## Evidence Status
 
-_To be populated._
+INSUFFICIENT
 
-## Weakest Assumptions
+More customer interviews are required.
 
-_To be populated._
+## Next Target
 
-## Product Implications
+Find at least:
 
-_To be populated._
+20 qualified customer signals
 
-## Decision
+10 meaningful conversations
 
-Do not make major product decisions until sufficient evidence has been collected.
+5 confirmed recurring problems
+
+3 solution tests
+
+1 paying customer
+
+## Decision Rule
+
+Do not build major new product functionality solely because a problem sounds interesting.
+
+Build after repeated customer evidence demonstrates that the problem is:
+
+1. Real
+2. Frequent
+3. Painful
+4. Solvable
+5. Valuable enough to pay for

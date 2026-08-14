@@ -1,37 +1,125 @@
-﻿# AIIP Customer Discovery Hypotheses
+﻿# AIIP Customer Hypotheses
 
 ## Purpose
 
-Determine whether digital-asset investors have a sufficiently painful intelligence problem that AIIP can solve commercially.
+This document records assumptions about AIIP customers and the problems we believe AIIP may solve.
 
-## Current hypothesis
+These are hypotheses, not established facts.
 
-Digital-asset investors struggle to convert large amounts of fragmented market information into a clear, defensible investment decision.
+---
 
-## Questions we need to answer
+## Hypothesis 000 — Core Customer Problem
 
-1. What information do investors currently use?
-2. What takes the most time?
-3. What information do they distrust?
-4. What decisions are hardest?
-5. What mistakes are they afraid of making?
-6. What tools do they currently pay for?
-7. What would make an AIIP report useful?
-8. Would they use such a report repeatedly?
-9. Would they pay for it?
-10. What price feels reasonable?
+### Statement
 
-## Success criteria
+Active digital-asset investors may struggle less with access to information than with interpreting and synthesizing fragmented information into a coherent investment decision.
 
-- 20 relevant investors identified
-- 10 meaningful conversations
-- 5 investors describe a materially similar problem
-- 3 recurring high-value problems identified
-- 1 investor agrees to test an AIIP report
-- Evidence of willingness to pay
+### Observed Signals
 
-## Important rule
+Early customer research shows questions involving:
 
-Do not change the product hypothesis simply because one person gives an interesting opinion.
+- asset selection
+- BUY/HOLD/SELL decisions
+- severe losses
+- exchange due diligence
+- liquidity
+- trading uncertainty
+- fragmented information
 
-Look for repeated patterns.
+### Potential AIIP Solution
+
+AIIP could transform fragmented digital-asset information into structured decision intelligence covering:
+
+- market conditions
+- fundamentals
+- tokenomics
+- on-chain activity
+- liquidity
+- risk
+- competitive position
+- bull case
+- bear case
+- thesis invalidation
+- monitoring signals
+
+### Validation Status
+
+EARLY SIGNAL — NOT VALIDATED
+
+### Required Evidence
+
+Before treating this as a validated product thesis:
+
+- 20+ qualified digital-asset customer signals
+- 10+ customer conversations
+- 5+ recurring problem confirmations
+- 3+ product tests
+- At least 1 paying customer
+
+## Hypothesis 001 — Investment Decision Intelligence
+
+### Statement
+
+Active digital-asset investors and traders struggle to make informed BUY, HOLD, SELL, or WAIT decisions because relevant information is fragmented across multiple sources.
+
+### Customer
+
+Active digital-asset investors and traders.
+
+### Problem
+
+Customers may have access to large amounts of information but lack a structured way to evaluate it.
+
+### Desired outcome
+
+A customer wants a clear, evidence-based assessment that helps them understand the factors supporting or contradicting an investment thesis.
+
+### Evidence required
+
+- Multiple customers describe this problem independently.
+- Customers currently use multiple information sources.
+- Customers report difficulty evaluating conflicting information.
+- Customers are willing to test a structured AIIP report.
+- At least one customer is willing to pay.
+
+### Status
+
+UNVALIDATED
+
+---
+
+## Hypothesis 002 — Capital Allocation
+
+### Statement
+
+Investors with available capital struggle to determine where to deploy that capital.
+
+### Evidence required
+
+- Investors actively seeking allocation recommendations.
+- Digital assets are within their investment universe.
+- Customers identify research/analysis as a major difficulty.
+- Customers are willing to pay for improved decision support.
+
+### Status
+
+UNVALIDATED
+
+---
+
+## Hypothesis 003 — Risk Intelligence
+
+### Statement
+
+Digital-asset investors need better ways to evaluate risks associated with assets, exchanges, protocols, liquidity, and market conditions.
+
+### Evidence required
+
+- Repeated customer complaints about evaluating risk.
+- Existing tools are considered insufficient.
+- Customers identify risk assessment as a valuable use case.
+- Customers are willing to pay.
+
+### Status
+
+UNVALIDATED
