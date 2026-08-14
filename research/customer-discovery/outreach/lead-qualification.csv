@@ -1,0 +1,9 @@
+Lead ID,Signal ID,Priority,Platform,Post URL,Username,Digital Asset Relevance,Problem Category,Decision,Decision Urgency,Capital At Risk,Qualification Status,Contact Eligibility,Qualification Notes
+LEAD-003,003,1,Reddit,,,Confirmed,Risk Intelligence,WAIT/EVALUATE,High,Yes,Pending,Blocked - source details required,"Strongest current signal. Explicit exchange due diligence before committing real money."
+LEAD-002,002,2,X,,,Confirmed,Risk & Decision Intelligence,SELL/HOLD,High,Yes,Pending,Blocked - source details required,"Explicit decision uncertainty following severe asset loss."
+LEAD-001,001,3,X,,,Confirmed,Asset Selection,BUY,High,Unknown,Pending,Blocked - source details required,"Explicit request for crypto asset selection."
+LEAD-004,004,4,Reddit,,,Confirmed,Decision Intelligence,OTHER,Medium,Yes,Pending,Blocked - source details required,"Strong information-fragmentation signal but decision and commercial urgency require qualification."
+LEAD-005,005,5,Reddit,,,Confirmed,Crypto Operations,SELL/CONVERT,High,Yes,Pending,Blocked - source details required,"Real crypto activity but may fall outside AIIP V1 decision-intelligence scope."
+LEAD-007,007,6,X,,,Potential,Capital Allocation,BUY,High,Yes,Pending,Qualification required,"Strong capital-allocation signal but digital-asset exposure has not been established."
+LEAD-008,008,7,X,,,Potential,Capital Allocation,BUY,High,Yes,Pending,Qualification required,"Substantial capital deployment intent but digital-asset exposure has not been established."
+LEAD-006,006,8,X,,,Not Relevant,Not AIIP,BUY,Medium,Yes,Excluded,Do not contact,"Technology-product purchasing problem without demonstrated digital-asset investment relevance."
