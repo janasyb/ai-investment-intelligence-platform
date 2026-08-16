@@ -19,12 +19,7 @@ class LoggingConfig:
 
     log_level: int = logging.INFO
 
-    log_format: str = (
-        "%(asctime)s | "
-        "%(levelname)-8s | "
-        "%(name)s | "
-        "%(message)s"
-    )
+    log_format: str = "%(asctime)s | " "%(levelname)-8s | " "%(name)s | " "%(message)s"
 
     date_format: str = "%Y-%m-%d %H:%M:%S"
 
