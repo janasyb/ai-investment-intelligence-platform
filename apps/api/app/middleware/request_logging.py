@@ -27,8 +27,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         request_id = request.headers.get("X-Request-ID", "-")
 
         logger.info(
-            "HTTP request completed "
-            "method=%s path=%s status=%s duration_ms=%.2f request_id=%s",
+            "HTTP request completed " "method=%s path=%s status=%s duration_ms=%.2f request_id=%s",
             request.method,
             request.url.path,
             response.status_code,

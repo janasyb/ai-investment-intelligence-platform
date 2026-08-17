@@ -68,7 +68,7 @@ class Settings(BaseSettings):
     ########################################################
 
     secret_key: str = Field(
-        default="CHANGE_ME_IN_PRODUCTION",
+        default="AIIP_DEVELOPMENT_ONLY_SECRET_KEY_DO_NOT_USE_IN_PRODUCTION_123456789",
         min_length=32,
     )
 
@@ -80,9 +80,7 @@ class Settings(BaseSettings):
     # Database
     ########################################################
 
-    database_url: str = (
-        "postgresql+psycopg://postgres:postgres@localhost:5432/aiip"
-    )
+    database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/aiip"
 
     ########################################################
     # Redis

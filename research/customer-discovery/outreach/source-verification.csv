@@ -1,0 +1,9 @@
+Lead ID,Signal ID,Verification Status,Verification Date,Platform,Post URL,Username,Original Post Confirmed,Problem Confirmed,Digital Asset Relevance,Decision Type,Decision Proximity,Current Behavior Evidence,Contact Eligibility,Verification Notes,Verified By
+LEAD-003,003,BLOCKED,,,,,No,Unknown,Unknown,WAIT/EVALUATE,Unknown,Unknown,Blocked - source details required,"Original Reddit source has not yet been located or verified. Do not contact.",Research
+LEAD-002,002,BLOCKED,,,,,No,Unknown,Unknown,SELL/HOLD,Unknown,Unknown,Blocked - source details required,"Original X source has not yet been located or verified. Do not contact.",Research
+LEAD-001,001,BLOCKED,,,,,No,Unknown,Confirmed,BUY,Unknown,Unknown,Blocked - source details required,"Original X source has not yet been located or verified. Do not contact.",Research
+LEAD-004,004,BLOCKED,,,,,No,Unknown,Confirmed,OTHER,Unknown,Unknown,Blocked - source details required,"Original Reddit source has not yet been located or verified. Do not contact.",Research
+LEAD-005,005,BLOCKED,,,,,No,Unknown,Confirmed,SELL/CONVERT,Unknown,Unknown,Blocked - source details required,"Original Reddit source has not yet been located or verified. Do not contact.",Research
+LEAD-007,007,VERIFIED - QUALIFICATION REQUIRED,,,,,No,Unknown,Potential,BUY,Unknown,Unknown,Qualification Required,"Signal indicates substantial capital-allocation intent, but digital-asset exposure has not been established.",Research
+LEAD-008,008,VERIFIED - QUALIFICATION REQUIRED,,,,,No,Unknown,Potential,BUY,Unknown,Unknown,Qualification Required,"Signal indicates substantial capital-deployment intent, but digital-asset exposure has not been established.",Research
+LEAD-006,006,EXCLUDED,,,,,No,Not Applicable,Not Relevant,BUY,Low,Not Relevant,Excluded,"Technology-product purchasing signal does not demonstrate digital-asset investment relevance.",Research

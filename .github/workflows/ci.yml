@@ -1,0 +1,151 @@
+﻿name: AIIP CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aiip-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: API Quality
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/api
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: apps/api/pyproject.toml
+
+      - name: Install API dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[dev]"
+
+      - name: Ruff
+        run: python -m ruff check .
+
+      - name: Black
+        run: python -m black --check .
+
+      - name: Mypy
+        run: python -m mypy app
+
+      - name: Pytest
+        run: python -m pytest
+
+  docker:
+    name: API Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build API image
+        uses: docker/build-push-action@v6
+        with:
+          context: apps/api
+          file: apps/api/Dockerfile
+          push: false
+          load: true
+          tags: aiip-api:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Run API container
+        run: |
+          docker run -d \
+            --name aiip-api-ci \
+            -p 8000:8000 \
+            aiip-api:ci
+
+      - name: Wait for container health
+        run: |
+          for i in {1..30}; do
+            status="$(docker inspect --format '{{.State.Health.Status}}' aiip-api-ci 2>/dev/null || true)"
+
+            echo "Health status: ${status:-unknown}"
+
+            if [ "$status" = "healthy" ]; then
+              exit 0
+            fi
+
+            if [ "$status" = "unhealthy" ]; then
+              docker logs aiip-api-ci
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          docker logs aiip-api-ci
+          exit 1
+
+      - name: Verify container runs as non-root
+        run: |
+          user="$(docker exec aiip-api-ci id -u)"
+          name="$(docker exec aiip-api-ci id -un)"
+
+          echo "Container UID: $user"
+          echo "Container user: $name"
+
+          test "$user" = "10001"
+          test "$name" = "aiip"
+
+      - name: Test liveness
+        run: |
+          curl --fail --silent --show-error \
+            http://localhost:8000/health/live
+
+      - name: Test readiness
+        run: |
+          curl --fail --silent --show-error \
+            http://localhost:8000/health/ready
+
+      - name: Test metrics
+        run: |
+          curl --fail --silent --show-error \
+            http://localhost:8000/health/metrics
+
+      - name: Test root endpoint
+        run: |
+          curl --fail --silent --show-error \
+            http://localhost:8000/
+
+      - name: Test OpenAPI
+        run: |
+          curl --fail --silent --show-error \
+            http://localhost:8000/openapi.json
+
+      - name: Collect container logs
+        if: always()
+        run: |
+          docker logs aiip-api-ci 2>&1 || true
+
+      - name: Remove API container
+        if: always()
+        run: |
+          docker rm -f aiip-api-ci 2>/dev/null || true
