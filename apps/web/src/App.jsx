@@ -1,27 +1,11 @@
-
-import "./styles/index.css";
+﻿import "./styles/index.css";
+import Navbar from "./components/layout/Navbar.jsx";
+import Footer from "./components/layout/Footer.jsx";
 
 function App() {
   return (
     <div className="site-shell">
-      <header className="navbar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-          <div>
-            <div className="brand-name">AIIP</div>
-            <div className="brand-subtitle">AI Investment Intelligence</div>
-          </div>
-        </div>
-
-        <nav className="nav-links">
-          <a href="#platform">Platform</a>
-          <a href="#intelligence">Intelligence</a>
-          <a href="#research">Research</a>
-          <a href="#about">About</a>
-        </nav>
-
-        <button className="nav-button">Request Access</button>
-      </header>
+      <Navbar />
 
       <main>
         <section className="hero">
@@ -241,7 +225,7 @@ function App() {
               </p>
 
               <a href="#access" className="text-link">
-                Explore the research framework →
+                Explore the research framework â†’
               </a>
             </div>
 
@@ -301,26 +285,7 @@ function App() {
         </section>
       </main>
 
-      <footer id="about" className="footer">
-        <div className="footer-brand">
-          <div className="brand-mark">A</div>
-          <div>
-            <strong>AIIP Technologies</strong>
-            <span>AI Investment Intelligence Platform</span>
-          </div>
-        </div>
-
-        <div className="footer-links">
-          <a href="#platform">Platform</a>
-          <a href="#intelligence">Intelligence</a>
-          <a href="#research">Research</a>
-          <a href="#about">About</a>
-        </div>
-
-        <div className="copyright">
-          © 2026 AIIP Technologies. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

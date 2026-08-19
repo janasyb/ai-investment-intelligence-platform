@@ -1,0 +1,29 @@
+﻿function Navbar() {
+  return (
+    <header className="navbar">
+      <div className="brand">
+        <div className="brand-mark">A</div>
+
+        <div>
+          <div className="brand-name">AIIP</div>
+          <div className="brand-subtitle">
+            AI Investment Intelligence
+          </div>
+        </div>
+      </div>
+
+      <nav className="nav-links" aria-label="Primary navigation">
+        <a href="#platform">Platform</a>
+        <a href="#intelligence">Intelligence</a>
+        <a href="#research">Research</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <a href="#access" className="nav-button">
+        Request Access
+      </a>
+    </header>
+  );
+}
+
+export default Navbar;
