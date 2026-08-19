@@ -5,19 +5,30 @@
   className = "",
   type = "button",
   onClick,
+  ariaLabel,
 }) {
   const classes = `button button-${variant} ${className}`.trim();
 
   if (href) {
     return (
-      <a href={href} className={classes} onClick={onClick}>
+      <a
+        href={href}
+        className={classes}
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      aria-label={ariaLabel}
+    >
       {children}
     </button>
   );
