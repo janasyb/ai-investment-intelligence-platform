@@ -42,8 +42,5 @@ Thumbs.db
 
 # Documentation / local development
 
-# Test files
-tests/
-
 # Docker local artifacts
 docker-compose.override.yml

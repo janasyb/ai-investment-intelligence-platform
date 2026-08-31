@@ -15,13 +15,15 @@ RUN groupadd --system --gid 10001 aiip \
     && useradd --system --uid 10001 --gid 10001 --no-create-home aiip
 
 # Install application dependencies.
-COPY pyproject.toml README.md ./
+COPY pyproject.toml README.md alembic.ini ./
+COPY alembic ./alembic
 
 RUN python -m pip install --upgrade pip \
-    && python -m pip install .
+    && python -m pip install ".[dev]"
 
-# Copy application source.
+# Copy application source and tests.
 COPY app ./app
+COPY tests ./tests
 
 # Ensure the application user owns the application directory.
 RUN chown -R aiip:aiip /app

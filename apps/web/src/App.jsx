@@ -1,3 +1,4 @@
+﻿import { useState } from "react";
 import "./styles/index.css";
 
 import Button from "./components/common/Button.jsx";
@@ -7,6 +8,7 @@ import DecisionPanel from "./components/intelligence/DecisionPanel.jsx";
 import ProcessCard from "./components/intelligence/ProcessCard.jsx";
 import IntelligenceList from "./components/intelligence/IntelligenceList.jsx";
 import useActiveSection from "./hooks/useActiveSection.js";
+import AccessModal from "./components/access/AccessModal.jsx";
 
 const SECTION_IDS = [
   "platform",
@@ -53,6 +55,8 @@ const INTELLIGENCE_ITEMS = [
 
 function App() {
   const activeSection = useActiveSection(SECTION_IDS);
+
+  const [accessOpen, setAccessOpen] = useState(false);
 
   const handleNavigate = (event, id) => {
     const target = document.getElementById(id);
