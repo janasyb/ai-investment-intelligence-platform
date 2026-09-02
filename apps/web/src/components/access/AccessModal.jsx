@@ -70,7 +70,7 @@ function AccessModal({ open, onClose }) {
           AIIP Early Access
         </div>
 
-        <AccessForm onSuccess={onClose} />
+        <AccessForm />
       </div>
     </div>
   );

@@ -80,6 +80,7 @@ function App() {
       <Navbar
         activeSection={activeSection}
         onNavigate={handleNavigate}
+        onRequestAccess={() => setAccessOpen(true)}
       />
 
       <main>
@@ -244,7 +245,7 @@ function App() {
               assets.
             </p>
 
-            <Button href="#access">
+            <Button onClick={() => setAccessOpen(true)}>
               Request Early Access
             </Button>
           </div>
@@ -252,6 +253,11 @@ function App() {
       </main>
 
       <Footer />
+
+      <AccessModal
+        open={accessOpen}
+        onClose={() => setAccessOpen(false)}
+      />
     </div>
   );
 }

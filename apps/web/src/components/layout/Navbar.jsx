@@ -1,31 +1,26 @@
-﻿function Navbar({ onRequestAccess }) {
+function Navbar({ onRequestAccess }) {
   return (
-    <header className="navbar">
-      <div className="brand">
-        <div className="brand-mark">A</div>
+    <header className="site-header">
+      <div className="site-header-inner">
+        <a className="brand" href="/">
+          AIIP
+        </a>
 
-        <div>
-          <div className="brand-name">AIIP</div>
-          <div className="brand-subtitle">
-            AI Investment Intelligence
-          </div>
-        </div>
+        <nav className="site-nav" aria-label="Primary navigation">
+          <a href="#platform">Platform</a>
+          <a href="#intelligence">Intelligence</a>
+          <a href="#research">Research</a>
+          <a href="#about">About</a>
+        </nav>
+
+        <button
+          type="button"
+          className="button button-primary"
+          onClick={onRequestAccess}
+        >
+          Request Access
+        </button>
       </div>
-
-      <nav className="nav-links" aria-label="Primary navigation">
-        <a href="#platform">Platform</a>
-        <a href="#intelligence">Intelligence</a>
-        <a href="#research">Research</a>
-        <a href="#about">About</a>
-      </nav>
-
-      <button
-        type="button"
-        className="nav-button"
-        onClick={onRequestAccess}
-      >
-        Request Access
-      </button>
     </header>
   );
 }

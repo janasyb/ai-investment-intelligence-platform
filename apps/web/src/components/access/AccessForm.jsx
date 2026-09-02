@@ -8,7 +8,7 @@ const INITIAL_FORM = {
   consent: false,
 };
 
-function AccessForm({ onSuccess }) {
+function AccessForm() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
@@ -68,11 +68,6 @@ function AccessForm({ onSuccess }) {
     setStatus("submitting");
 
     try {
-      /*
-       * AIIP-016 intentionally keeps submission behind a frontend API
-       * boundary. The production endpoint will be implemented with the
-       * application API in the next backend slice.
-       */
       const response = await fetch("/api/v1/access-requests", {
         method: "POST",
         headers: {
@@ -95,9 +90,6 @@ function AccessForm({ onSuccess }) {
       setForm(INITIAL_FORM);
       setErrors({});
 
-      if (onSuccess) {
-        onSuccess();
-      }
     } catch {
       setStatus("error");
     }
