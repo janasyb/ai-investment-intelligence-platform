@@ -1,27 +1,87 @@
-
+﻿import { useState } from "react";
 import "./styles/index.css";
 
+import Button from "./components/common/Button.jsx";
+import Navbar from "./components/layout/Navbar.jsx";
+import Footer from "./components/layout/Footer.jsx";
+import DecisionPanel from "./components/intelligence/DecisionPanel.jsx";
+import ProcessCard from "./components/intelligence/ProcessCard.jsx";
+import IntelligenceList from "./components/intelligence/IntelligenceList.jsx";
+import useActiveSection from "./hooks/useActiveSection.js";
+import AccessModal from "./components/access/AccessModal.jsx";
+
+const SECTION_IDS = [
+  "platform",
+  "intelligence",
+  "research",
+  "about",
+];
+
+const PROCESS_STEPS = [
+  {
+    number: "01",
+    title: "Discover",
+    description:
+      "Identify relevant market, asset, and investment information.",
+  },
+  {
+    number: "02",
+    title: "Analyze",
+    description:
+      "Examine market, fundamental, tokenomic, liquidity, and risk factors.",
+  },
+  {
+    number: "03",
+    title: "Synthesize",
+    description:
+      "Bring relevant evidence together into a structured research view.",
+  },
+  {
+    number: "04",
+    title: "Decide",
+    description:
+      "Support a disciplined evaluation of BUY, HOLD, SELL, or WAIT decisions.",
+  },
+];
+
+const INTELLIGENCE_ITEMS = [
+  "Market Intelligence",
+  "Fundamental Analysis",
+  "Tokenomics",
+  "Liquidity & Execution",
+  "Risk Intelligence",
+  "Evidence Synthesis",
+];
+
 function App() {
+  const activeSection = useActiveSection(SECTION_IDS);
+
+  const [accessOpen, setAccessOpen] = useState(false);
+
+  const handleNavigate = (event, id) => {
+    const target = document.getElementById(id);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    window.history.replaceState(null, "", `#${id}`);
+  };
+
   return (
     <div className="site-shell">
-      <header className="navbar">
-        <div className="brand">
-          <div className="brand-mark">A</div>
-          <div>
-            <div className="brand-name">AIIP</div>
-            <div className="brand-subtitle">AI Investment Intelligence</div>
-          </div>
-        </div>
-
-        <nav className="nav-links">
-          <a href="#platform">Platform</a>
-          <a href="#intelligence">Intelligence</a>
-          <a href="#research">Research</a>
-          <a href="#about">About</a>
-        </nav>
-
-        <button className="nav-button">Request Access</button>
-      </header>
+      <Navbar
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        onRequestAccess={() => setAccessOpen(true)}
+      />
 
       <main>
         <section className="hero">
@@ -38,18 +98,18 @@ function App() {
             <p className="hero-description">
               AIIP structures fragmented market, fundamental, tokenomic,
               liquidity, and risk information into decision intelligence
-              designed to help investors evaluate opportunities with greater
-              clarity.
+              designed to help investors evaluate opportunities with
+              greater clarity.
             </p>
 
             <div className="hero-actions">
-              <a href="#platform" className="button button-primary">
+              <Button href="#platform">
                 Explore AIIP
-              </a>
+              </Button>
 
-              <a href="#research" className="button button-secondary">
+              <Button href="#research" variant="secondary">
                 View Research
-              </a>
+              </Button>
             </div>
 
             <div className="hero-note">
@@ -57,60 +117,7 @@ function App() {
             </div>
           </div>
 
-          <div className="decision-panel">
-            <div className="panel-header">
-              <div>
-                <div className="panel-label">AIIP DECISION INTELLIGENCE</div>
-                <div className="asset-name">Digital Asset Analysis</div>
-              </div>
-
-              <div className="status-badge">RESEARCH</div>
-            </div>
-
-            <div className="asset-summary">
-              <div>
-                <div className="metric-label">Decision Framework</div>
-                <div className="decision-value">BUY / HOLD / SELL / WAIT</div>
-              </div>
-            </div>
-
-            <div className="score-grid">
-              <div className="score-card">
-                <span>Market</span>
-                <strong>Analysis</strong>
-              </div>
-
-              <div className="score-card">
-                <span>Fundamentals</span>
-                <strong>Analysis</strong>
-              </div>
-
-              <div className="score-card">
-                <span>Tokenomics</span>
-                <strong>Analysis</strong>
-              </div>
-
-              <div className="score-card">
-                <span>Liquidity</span>
-                <strong>Analysis</strong>
-              </div>
-
-              <div className="score-card">
-                <span>Risk</span>
-                <strong>Analysis</strong>
-              </div>
-
-              <div className="score-card">
-                <span>Evidence</span>
-                <strong>Synthesis</strong>
-              </div>
-            </div>
-
-            <div className="panel-footer">
-              <span>AIIP Intelligence Engine</span>
-              <span>V0.1</span>
-            </div>
-          </div>
+          <DecisionPanel />
         </section>
 
         <section className="trust-strip">
@@ -135,8 +142,8 @@ function App() {
               <p>
                 Investors increasingly have access to more information than
                 ever before. The challenge is determining what matters,
-                understanding conflicting evidence, and translating research
-                into a structured decision process.
+                understanding conflicting evidence, and translating
+                research into a structured decision process.
               </p>
             </div>
           </div>
@@ -187,40 +194,14 @@ function App() {
           </div>
 
           <div className="process-grid">
-            <div className="process-card">
-              <span>01</span>
-              <h3>Discover</h3>
-              <p>
-                Identify relevant market, asset, and investment information.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>02</span>
-              <h3>Analyze</h3>
-              <p>
-                Examine market, fundamental, tokenomic, liquidity, and risk
-                factors.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>03</span>
-              <h3>Synthesize</h3>
-              <p>
-                Bring relevant evidence together into a structured research
-                view.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>04</span>
-              <h3>Decide</h3>
-              <p>
-                Support a disciplined evaluation of BUY, HOLD, SELL, or WAIT
-                decisions.
-              </p>
-            </div>
+            {PROCESS_STEPS.map((step) => (
+              <ProcessCard
+                key={step.number}
+                number={step.number}
+                title={step.title}
+                description={step.description}
+              />
+            ))}
           </div>
         </section>
 
@@ -236,46 +217,16 @@ function App() {
 
               <p>
                 AIIP research is designed to help investors examine multiple
-                dimensions of a digital asset rather than relying on a single
-                metric, headline, or market narrative.
+                dimensions of a digital asset rather than relying on a
+                single metric, headline, or market narrative.
               </p>
 
-              <a href="#access" className="text-link">
+              <Button href="#access" variant="secondary" className="text-link">
                 Explore the research framework →
-              </a>
+              </Button>
             </div>
 
-            <div className="intelligence-list">
-              <div>
-                <span>01</span>
-                <strong>Market Intelligence</strong>
-              </div>
-
-              <div>
-                <span>02</span>
-                <strong>Fundamental Analysis</strong>
-              </div>
-
-              <div>
-                <span>03</span>
-                <strong>Tokenomics</strong>
-              </div>
-
-              <div>
-                <span>04</span>
-                <strong>Liquidity & Execution</strong>
-              </div>
-
-              <div>
-                <span>05</span>
-                <strong>Risk Intelligence</strong>
-              </div>
-
-              <div>
-                <span>06</span>
-                <strong>Evidence Synthesis</strong>
-              </div>
-            </div>
+            <IntelligenceList items={INTELLIGENCE_ITEMS} />
           </div>
         </section>
 
@@ -294,33 +245,19 @@ function App() {
               assets.
             </p>
 
-            <button className="button button-primary">
+            <Button onClick={() => setAccessOpen(true)}>
               Request Early Access
-            </button>
+            </Button>
           </div>
         </section>
       </main>
 
-      <footer id="about" className="footer">
-        <div className="footer-brand">
-          <div className="brand-mark">A</div>
-          <div>
-            <strong>AIIP Technologies</strong>
-            <span>AI Investment Intelligence Platform</span>
-          </div>
-        </div>
+      <Footer />
 
-        <div className="footer-links">
-          <a href="#platform">Platform</a>
-          <a href="#intelligence">Intelligence</a>
-          <a href="#research">Research</a>
-          <a href="#about">About</a>
-        </div>
-
-        <div className="copyright">
-          © 2026 AIIP Technologies. All rights reserved.
-        </div>
-      </footer>
+      <AccessModal
+        open={accessOpen}
+        onClose={() => setAccessOpen(false)}
+      />
     </div>
   );
 }
