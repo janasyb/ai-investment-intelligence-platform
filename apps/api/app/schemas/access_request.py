@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
@@ -13,7 +14,7 @@ class AccessRequestCreate(BaseModel):
     email: EmailStr
     profile: str = Field(min_length=1, max_length=50)
     challenge: str = Field(min_length=1)
-    consent: bool
+    consent: Literal[True]
 
 
 class AccessRequestResponse(BaseModel):

@@ -28,11 +28,7 @@ class AccessRequest(Base):
         nullable=False,
     )
 
-    email: Mapped[str] = mapped_column(
-        String(320),
-        nullable=False,
-        index=True,
-    )
+    email: Mapped[str] = mapped_column(String(320), nullable=False, unique=True)
 
     profile: Mapped[str] = mapped_column(
         String(50),
