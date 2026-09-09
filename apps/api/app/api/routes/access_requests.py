@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.database import get_db_session
@@ -8,7 +8,10 @@ from app.schemas.access_request import (
     AccessRequestCreate,
     AccessRequestResponse,
 )
-from app.services.access_request import AccessRequestService
+from app.services.access_request import (
+    AccessRequestService,
+    DuplicateAccessRequestError,
+)
 
 router = APIRouter(
     prefix="/access-requests",
@@ -29,6 +32,12 @@ async def create_access_request(
 
     service = AccessRequestService(session)
 
-    access_request = await service.create(data)
+    try:
+        access_request = await service.create(data)
+    except DuplicateAccessRequestError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="An access request already exists for this email address.",
+        ) from exc
 
     return AccessRequestResponse.model_validate(access_request)
