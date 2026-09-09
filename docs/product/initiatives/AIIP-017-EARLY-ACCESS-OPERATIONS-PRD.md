@@ -244,13 +244,84 @@ Administrative functionality should use the existing backend architecture rather
 
 # 13. AUTHENTICATION DECISION
 
-Administrative access contains customer information.
+AIIP-017 requires an authenticated and authorized internal operations boundary because early-access records contain customer/prospect information.
 
-Therefore, an administrative interface must not be exposed as a public unauthenticated surface.
+The authentication architecture is now resolved by ADR-0002 and decision D011.
 
-Before implementation of a production administrative interface, AIIP must establish an appropriate authentication/authorization mechanism.
+## Authentication
 
-If full authentication is not yet justified for the validation stage, a safe internal operational alternative should be evaluated rather than exposing sensitive records publicly.
+AIIP internal operations will use a managed OpenID Connect (OIDC) identity provider.
+
+AIIP will not implement custom username/password authentication for AIIP-017.
+
+## Session
+
+After successful identity-provider authentication, AIIP will establish a secure server-side application session.
+
+Production sessions must use appropriate:
+
+- Secure cookie configuration
+- HttpOnly cookies
+- SameSite protection
+- session expiration
+- logout/session invalidation
+
+Long-lived authentication tokens must not be stored in browser localStorage or sessionStorage.
+
+## Authorization
+
+The initial authorization model contains one role:
+
+`operator`
+
+The FastAPI backend is the authoritative authorization boundary.
+
+The frontend must never be treated as a security boundary.
+
+Protected operations endpoints must reject:
+
+- unauthenticated requests
+- authenticated users without the required operator authorization
+
+Authorization follows a deny-by-default model.
+
+## MFA
+
+MFA should be enforced through the selected identity provider.
+
+AIIP should prefer phishing-resistant authentication mechanisms where supported.
+
+## Public Exposure
+
+The internal operations interface and its API endpoints must not be publicly accessible without authentication and authorization.
+
+Simply hiding an administrative route or removing it from public navigation does not constitute access control.
+
+## Scope
+
+This decision applies only to AIIP internal operations.
+
+It does not authorize:
+
+- customer authentication
+- customer accounts
+- enterprise SSO
+- multi-tenant identity
+- advanced role-management systems
+- customer identity management
+- password-management functionality
+
+Those capabilities require separate requirements and architectural decisions.
+
+## Authority
+
+Authentication architecture:
+
+`docs/adr/0002-admin-authentication-and-session-strategy.md`
+
+Product decision:
+
+`AIIP-D011 — Managed OIDC Authentication for Internal Operations`
 
 ---
 

@@ -291,3 +291,55 @@ However, material changes require:
 ---
 
 # END
+
+---
+
+## D011 — Managed OIDC Authentication for Internal Operations
+
+**Status:** Accepted  
+**Date:** 2026-09-09  
+**Initiative:** AIIP-017 — Early Access Operations
+
+### Decision
+
+AIIP internal operations will use managed OpenID Connect (OIDC) authentication with a secure server-side session.
+
+The initial authorization model will contain a single `operator` role.
+
+The FastAPI backend will enforce authorization for all protected operations endpoints.
+
+### Rationale
+
+AIIP-017 handles customer/prospect information and therefore cannot expose operational data through an unauthenticated interface.
+
+Building a custom username/password authentication system would introduce unnecessary security-sensitive complexity at the current stage.
+
+Managed OIDC allows AIIP to establish a strong authentication boundary while keeping AIIP responsible for application-level authorization.
+
+### Security Requirements
+
+- MFA should be enforced through the identity provider.
+- Production access requires HTTPS.
+- Session cookies must use appropriate Secure, HttpOnly, and SameSite attributes.
+- Authentication state must be enforced server-side.
+- The frontend is not a security boundary.
+- Long-lived authentication tokens must not be stored in browser localStorage.
+- Secrets must not be committed to the repository.
+- Authorization must default to deny.
+
+### Alternatives Rejected
+
+- custom username/password authentication
+- unauthenticated internal admin routes
+- static shared admin API keys as the primary production mechanism
+- browser localStorage authentication tokens
+
+### Scope
+
+This decision applies only to AIIP internal operations.
+
+It does not authorize customer authentication, customer accounts, enterprise SSO, multi-tenant identity, or advanced role management.
+
+### Review Trigger
+
+Revisit this decision when AIIP introduces multiple internal teams, customer accounts, enterprise identity requirements, or materially different compliance/security requirements.
