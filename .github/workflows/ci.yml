@@ -21,6 +21,21 @@ jobs:
     name: API Quality
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: aiip_test
+          POSTGRES_USER: aiip
+          POSTGRES_PASSWORD: aiip_test
+        options: >-
+          --health-cmd "pg_isready -U aiip -d aiip_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
     defaults:
       run:
         working-directory: apps/api
@@ -41,6 +56,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install ".[dev]"
 
+      - name: Run database migrations
+        env:
+          DATABASE_URL: postgresql+psycopg://aiip:aiip_test@localhost:5432/aiip_test
+        run: python -m alembic upgrade head
+
       - name: Ruff
         run: python -m ruff check .
 
@@ -51,6 +71,8 @@ jobs:
         run: python -m mypy app
 
       - name: Pytest
+        env:
+          DATABASE_URL: postgresql+psycopg://aiip:aiip_test@localhost:5432/aiip_test
         run: python -m pytest
 
   docker:
