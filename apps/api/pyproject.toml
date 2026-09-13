@@ -69,6 +69,7 @@ select = [
 "app/security/dependencies.py" = ["B008"]
 "app/security/passwords.py" = ["B008"]
 "app/api/routes/access_requests.py" = ["B008"]
+"app/auth/dependencies.py" = ["B008"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
