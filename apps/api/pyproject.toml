@@ -36,7 +36,8 @@ dev = [
     "pytest-cov>=7.0.0",
     "ruff>=0.12.10",
     "black>=25.1.0",
-    "mypy>=1.17.1"
+    "mypy>=1.17.1",
+    "types-Authlib",
 ]
 
 [build-system]
