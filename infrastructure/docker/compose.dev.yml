@@ -40,6 +40,8 @@ services:
       dockerfile: Dockerfile
     container_name: aiip-api
     restart: unless-stopped
+    env_file:
+      - ../../apps/api/.env
     environment:
       APP_NAME: "AI Investment Intelligence Platform"
       APP_VERSION: "0.1.0-alpha"

@@ -1,4 +1,3 @@
-@'
 # ADR-0002: Admin Authentication and Session Strategy
 
 - Status: Accepted
@@ -32,11 +31,13 @@ The initial authorization model will contain one operational role:
 
 `operator`
 
-The API will enforce authorization for every protected operations endpoint.
+The API will enforce authentication and authorization for every protected operations endpoint.
 
 The browser will not store long-lived authentication tokens in localStorage or sessionStorage.
 
 Authentication credentials will not be stored in the AIIP database.
+
+Authentication and authorization are separate concerns. Successful identity-provider authentication does not by itself grant internal operator access. AIIP must explicitly determine whether the authenticated identity is authorized for the `operator` role.
 
 ## Initial Access Model
 
@@ -45,12 +46,13 @@ The initial production model is:
 1. Operator visits the AIIP internal operations interface.
 2. Application redirects the operator to the configured OIDC identity provider.
 3. Identity provider authenticates the operator.
-4. MFA is enforced by the identity provider where supported/configured.
+4. MFA is enforced by the identity provider where configured.
 5. AIIP validates the OIDC response.
-6. AIIP establishes a secure authenticated session.
-7. AIIP associates the authenticated identity with the `operator` role.
-8. Protected API endpoints require an authenticated operator session.
-9. Unauthorized requests are rejected server-side.
+6. AIIP identifies the authenticated principal.
+7. AIIP verifies that the identity is explicitly authorized for the `operator` role.
+8. AIIP establishes a secure server-side application session.
+9. Protected API endpoints require an authenticated and authorized operator session.
+10. Unauthorized requests are rejected server-side.
 
 ## Authorization
 
@@ -61,8 +63,12 @@ The frontend is not considered a security boundary.
 The initial policy is deny-by-default:
 
 - unauthenticated users cannot access operations endpoints
-- authenticated non-operators cannot access operations endpoints
-- operators may access only capabilities explicitly granted to the operator role
+- authenticated but unauthorized users cannot access operations endpoints
+- authorized operators may access only capabilities explicitly granted to the `operator` role
+
+The application authorization mechanism must explicitly identify which authenticated identities are authorized operators.
+
+AIIP-017 does not introduce a general user-management or role-management subsystem.
 
 ## Session Security
 
@@ -74,17 +80,23 @@ Required controls include:
 - Secure cookies in production
 - HttpOnly cookies
 - appropriate SameSite policy
-- session expiration
-- logout/session invalidation
+- explicit session expiration
+- logout and session invalidation
 - protection against session fixation
 - no sensitive information encoded into the session identifier
 - no credentials or session secrets committed to source control
+- no long-lived authentication tokens stored in localStorage or sessionStorage
+- server-side session state rather than browser-held authentication state
+
+Sessions should support both an absolute lifetime and an appropriate idle timeout.
 
 ## MFA
 
-Administrative/operator access should use MFA through the identity provider.
+Administrative/operator access should use MFA through the managed identity provider.
 
 AIIP should prefer phishing-resistant authentication mechanisms where the selected identity provider supports them.
+
+AIIP does not implement a separate application-level MFA system for AIIP-017.
 
 ## Alternatives Considered
 
@@ -111,6 +123,7 @@ Reasons:
 - increases exposure to client-side token theft
 - unnecessary for the internal browser application
 - creates avoidable token lifecycle complexity
+- conflicts with the server-side session model
 
 ### Unauthenticated internal admin route
 
@@ -134,6 +147,7 @@ A static shared credential does not provide an appropriate operator identity, se
 - easier future operator expansion
 - protected API boundary
 - reduced authentication implementation scope
+- server-side control of operator sessions and access
 
 ### Negative
 
@@ -141,6 +155,7 @@ A static shared credential does not provide an appropriate operator identity, se
 - requires OIDC configuration
 - requires production domain and callback configuration
 - introduces provider-specific operational setup
+- requires explicit application-level operator authorization
 
 ## Scope Control
 
@@ -155,13 +170,15 @@ This decision does not authorize:
 - customer identity management
 - password management UI
 
-Those require separate product requirements and decisions.
+Those require separate product requirements and architectural decisions.
 
 ## Implementation Principle
 
 AIIP-017 should implement the smallest secure operator-access boundary necessary to manage early-access requests.
 
 Authentication must serve the operational workflow rather than becoming a standalone product subsystem.
+
+The backend must remain the authoritative security boundary.
 
 ## Review Trigger
 
@@ -173,4 +190,4 @@ This decision should be revisited if:
 - multiple authorization roles become necessary
 - compliance requirements materially change
 - the selected identity provider becomes unsuitable
-'@ | Set-Content .\docs\adr\0002-admin-authentication-and-session-strategy.md
+- materially different identity or authorization requirements emerge
