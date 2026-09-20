@@ -26,6 +26,7 @@ dependencies = [
     "structlog>=25.4.0",
     "PyJWT>=2.10.1",
     "pwdlib[argon2]>=0.2.1",
+    "Authlib>=1.8.0",
 ]
 
 [project.optional-dependencies]
@@ -35,7 +36,8 @@ dev = [
     "pytest-cov>=7.0.0",
     "ruff>=0.12.10",
     "black>=25.1.0",
-    "mypy>=1.17.1"
+    "mypy>=1.17.1",
+    "types-Authlib",
 ]
 
 [build-system]
@@ -68,6 +70,8 @@ select = [
 "app/security/dependencies.py" = ["B008"]
 "app/security/passwords.py" = ["B008"]
 "app/api/routes/access_requests.py" = ["B008"]
+"app/auth/dependencies.py" = ["B008"]
+"app/api/routes/auth.py" = ["B008"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

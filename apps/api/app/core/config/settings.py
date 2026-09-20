@@ -77,6 +77,25 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
 
     ########################################################
+    # Internal Operations Authentication
+    ########################################################
+
+    auth0_domain: str = ""
+    auth0_client_id: str = ""
+    auth0_client_secret: str = ""
+    auth0_redirect_uri: str = "http://localhost:8000/api/v1/auth/callback"
+    auth0_audience: str = ""
+    auth0_scope: str = "openid profile email"
+    auth0_operator_subject: str = ""
+
+    auth0_session_cookie_name: str = "aiip_operator_session"
+
+    auth0_session_ttl_seconds: int = 3600
+    auth0_session_idle_ttl_seconds: int = 1800
+
+    auth0_secure_cookie: bool = False
+
+    ########################################################
     # Database
     ########################################################
 
