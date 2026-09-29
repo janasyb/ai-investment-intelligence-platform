@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from uuid import UUID
+
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.access_request import AccessRequest
@@ -28,6 +31,45 @@ class AccessRequestRepository:
         )
 
         self.session.add(access_request)
+        await self.session.commit()
+        await self.session.refresh(access_request)
+
+        return access_request
+
+    async def list_all(self) -> list[AccessRequest]:
+        """Return all access requests ordered by newest first."""
+
+        result = await self.session.execute(
+            select(AccessRequest).order_by(
+                AccessRequest.created_at.desc(),
+            ),
+        )
+
+        return list(result.scalars().all())
+
+    async def get_by_id(
+        self,
+        access_request_id: UUID,
+    ) -> AccessRequest | None:
+        """Return one access request by ID."""
+
+        result = await self.session.execute(
+            select(AccessRequest).where(
+                AccessRequest.id == access_request_id,
+            ),
+        )
+
+        return result.scalar_one_or_none()
+
+    async def update_status(
+        self,
+        access_request: AccessRequest,
+        status: str,
+    ) -> AccessRequest:
+        """Update and persist an access request's operational status."""
+
+        access_request.status = status
+
         await self.session.commit()
         await self.session.refresh(access_request)
 

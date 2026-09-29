@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -7,6 +8,8 @@ import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import select
 
+from app.auth.dependencies import get_current_operator
+from app.auth.session import OperatorSession
 from app.db.session import AsyncSessionLocal
 from app.main import app
 from app.models.access_request import AccessRequest
@@ -35,6 +38,38 @@ def build_payload(email: str) -> dict[str, object]:
         "challenge": "I need better research before making investment decisions.",
         "consent": True,
     }
+
+
+@pytest_asyncio.fixture
+async def operator_async_client():
+    """Provide an authenticated async HTTP client for operations routes."""
+
+    now = datetime.now(UTC)
+
+    async def override_operator() -> OperatorSession:
+        return OperatorSession(
+            session_id="integration-test-session",
+            subject="auth0|integration-test-operator",
+            role="operator",
+            email="operator@example.com",
+            name="Integration Test Operator",
+            created_at=now,
+            expires_at=now.replace(year=now.year + 1),
+            last_seen_at=now,
+        )
+
+    app.dependency_overrides[get_current_operator] = override_operator
+
+    transport = ASGITransport(app=app)
+
+    try:
+        async with AsyncClient(
+            transport=transport,
+            base_url="http://test",
+        ) as client:
+            yield client
+    finally:
+        app.dependency_overrides.clear()
 
 
 @pytest.mark.asyncio
@@ -148,3 +183,52 @@ async def test_consent_is_required(
         access_request = result.scalar_one_or_none()
 
         assert access_request is None
+
+
+@pytest.mark.asyncio
+async def test_update_access_request_status_persists_to_database(
+    async_client: AsyncClient,
+    operator_async_client: AsyncClient,
+) -> None:
+    """An operations status update should persist to PostgreSQL."""
+
+    email = f"status-persistence-{uuid4()}@example.com"
+
+    create_response = await async_client.post(
+        "/api/v1/access-requests",
+        json=build_payload(email),
+    )
+
+    assert create_response.status_code == 201
+
+    created_body = create_response.json()
+    access_request_id = created_body["id"]
+
+    assert created_body["status"] == "pending"
+
+    update_response = await operator_async_client.patch(
+        f"/api/v1/operations/access-requests/{access_request_id}/status",
+        json={"status": "contacted"},
+    )
+
+    assert update_response.status_code == 200
+
+    updated_body = update_response.json()
+
+    assert updated_body["id"] == access_request_id
+    assert updated_body["status"] == "contacted"
+
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(AccessRequest).where(
+                AccessRequest.email == email,
+            )
+        )
+        access_request = result.scalar_one_or_none()
+
+        assert access_request is not None
+        assert str(access_request.id) == access_request_id
+        assert access_request.status == "contacted"
+
+        await session.delete(access_request)
+        await session.commit()

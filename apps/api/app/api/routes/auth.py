@@ -136,7 +136,7 @@ async def callback(
     )
 
     redirect = RedirectResponse(
-        url="/",
+        url=f"{settings.frontend_url.rstrip('/')}/operations",
         status_code=status.HTTP_303_SEE_OTHER,
     )
 
