@@ -5,6 +5,8 @@ Loads configuration from environment variables and an optional .env file.
 """
 
 from functools import lru_cache
+from pathlib import Path
+from typing import ClassVar
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -25,8 +27,10 @@ from app.core.config.environments import Environment
 class Settings(BaseSettings):
     """Application configuration."""
 
+    API_ROOT: ClassVar[Path] = Path(__file__).resolve().parents[3]
+
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=API_ROOT / ".env",
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=False,
@@ -94,6 +98,8 @@ class Settings(BaseSettings):
     auth0_session_idle_ttl_seconds: int = 1800
 
     auth0_secure_cookie: bool = False
+
+    frontend_url: str = "http://localhost:3000"
 
     ########################################################
     # Database
