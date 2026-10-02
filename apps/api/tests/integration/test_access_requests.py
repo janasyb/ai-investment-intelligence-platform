@@ -53,6 +53,7 @@ async def operator_async_client():
             role="operator",
             email="operator@example.com",
             name="Integration Test Operator",
+            csrf_token="test-csrf-token",
             created_at=now,
             expires_at=now.replace(year=now.year + 1),
             last_seen_at=now,
@@ -208,6 +209,7 @@ async def test_update_access_request_status_persists_to_database(
 
     update_response = await operator_async_client.patch(
         f"/api/v1/operations/access-requests/{access_request_id}/status",
+        headers={"X-CSRF-Token": "test-csrf-token"},
         json={"status": "contacted"},
     )
 

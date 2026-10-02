@@ -1,10 +1,27 @@
 ﻿from __future__ import annotations
 
 import secrets
+from collections.abc import Awaitable
 from datetime import UTC, datetime, timedelta
+from typing import Any, Protocol
 
 from pydantic import BaseModel, ConfigDict
-from redis.asyncio import Redis
+
+
+class SessionRedisClient(Protocol):
+    """Minimal async Redis interface required by OperatorSessionStore."""
+
+    def set(
+        self,
+        name: str,
+        value: str,
+        *,
+        ex: int | None = None,
+    ) -> Awaitable[Any]: ...
+
+    def get(self, name: str) -> Awaitable[str | bytes | None]: ...
+
+    def delete(self, *names: str) -> Awaitable[int]: ...
 
 
 class OperatorSession(BaseModel):
@@ -17,6 +34,7 @@ class OperatorSession(BaseModel):
     role: str
     email: str | None = None
     name: str | None = None
+    csrf_token: str
     created_at: datetime
     expires_at: datetime
     last_seen_at: datetime
@@ -29,7 +47,7 @@ class OperatorSessionStore:
 
     def __init__(
         self,
-        redis: Redis,
+        redis: SessionRedisClient,
         *,
         ttl_seconds: int,
         idle_ttl_seconds: int,
@@ -48,6 +66,7 @@ class OperatorSessionStore:
     ) -> OperatorSession:
         now = datetime.now(UTC)
         session_id = secrets.token_urlsafe(32)
+        csrf_token = secrets.token_urlsafe(32)
 
         session = OperatorSession(
             session_id=session_id,
@@ -55,6 +74,7 @@ class OperatorSessionStore:
             role=role,
             email=email,
             name=name,
+            csrf_token=csrf_token,
             created_at=now,
             expires_at=now + timedelta(seconds=self._ttl_seconds),
             last_seen_at=now,

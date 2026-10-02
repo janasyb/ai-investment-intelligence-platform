@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from fastapi import Cookie, Depends, HTTPException, status
+import secrets
+
+from fastapi import Cookie, Depends, Header, HTTPException, status
 
 from app.auth.session import OperatorSession, OperatorSessionStore
 from app.cache.redis import redis_client
@@ -45,3 +47,24 @@ async def get_current_operator(
         )
 
     return session
+
+
+async def require_csrf(
+    csrf_token: str | None = Header(default=None, alias="X-CSRF-Token"),
+    operator: OperatorSession = Depends(get_current_operator),
+) -> OperatorSession:
+    """Require an authenticated operator and a valid session-bound CSRF token."""
+
+    if not csrf_token:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="CSRF validation failed.",
+        )
+
+    if not secrets.compare_digest(csrf_token, operator.csrf_token):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="CSRF validation failed.",
+        )
+
+    return operator

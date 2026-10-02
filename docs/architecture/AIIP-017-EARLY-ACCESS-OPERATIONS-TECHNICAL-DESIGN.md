@@ -4,7 +4,7 @@
 
 - **Initiative:** AIIP-017
 - **Title:** Early Access Operations
-- **Status:** Proposed for Implementation
+- **Status:** Implemented and Validated
 - **Related PRD:** `docs/product/initiatives/AIIP-017-EARLY-ACCESS-OPERATIONS-PRD.md`
 - **Related ADR:** `docs/adr/0002-admin-authentication-and-session-strategy.md`
 - **Related Decision:** `AIIP-D011`
@@ -262,9 +262,10 @@ Valid authenticated operator
 
 The initial implementation should use a configured operator identity rather than creating an operator-management database.
 
-The authorization mechanism may use a provider claim or explicitly configured identity value.
+The implementation uses the explicitly configured `AUTH0_OPERATOR_SUBJECT`
+value as the operator authorization boundary.
 
-The exact claim and configuration must be finalized during implementation based on the selected Auth0 application configuration.
+No operator-management database is introduced.
 
 The implementation must not introduce:
 
@@ -665,6 +666,21 @@ State-changing operations include:
 
 POST /api/v1/auth/logout
 PATCH /api/v1/operations/access-requests/{id}/status
+
+---
+
+### 19.1 Implemented Security Controls
+
+AIIP-017 implements the following controls:
+
+- Cookie-based operator authentication uses a server-side Redis session.
+- Each operator session receives an independently generated CSRF token.
+- State-changing operator operations require the authenticated session and a matching `X-CSRF-Token` header.
+- Operator logout is CSRF protected.
+- CORS permits only the configured AIIP frontend origin.
+- Credentialed browser requests are explicitly enabled.
+- `X-CSRF-Token` is explicitly allowed for preflight requests.
+- Production configuration rejects unsafe secret, HTTPS, Secure-cookie, and required Auth0 configuration values.
 
 # 20. HTTP Error Contract
 
@@ -1085,6 +1101,8 @@ Do not build a general admin dashboard.
 
 Step 9 — Security Hardening
 
+**Status: Complete**
+
 Validate:
 
 HTTPS behavior
@@ -1110,6 +1128,8 @@ Docker validation
 Database migration validation
 Git diff checks
 CI
+
+CORS is explicitly configured, CSRF protection is implemented, production security configuration is validated, and automated security tests are passing.
 
 # 35. Acceptance Gate
 

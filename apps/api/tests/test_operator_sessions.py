@@ -67,6 +67,11 @@ async def test_create_and_get_session() -> None:
     assert restored.role == "operator"
     assert restored.email == "operator@example.com"
     assert restored.name == "AIIP Operator"
+    assert restored.csrf_token == session.csrf_token
+
+    assert session.csrf_token
+    assert session.csrf_token != session.session_id
+    assert restored.csrf_token != restored.session_id
 
     assert restored.created_at.tzinfo == UTC
     assert restored.expires_at > restored.created_at
@@ -149,6 +154,7 @@ async def test_expired_session_is_deleted() -> None:
         "role": "operator",
         "email": None,
         "name": None,
+        "csrf_token": "test-csrf-token",
         "created_at": (now - timedelta(hours=2)).isoformat(),
         "expires_at": (now - timedelta(hours=1)).isoformat(),
         "last_seen_at": (now - timedelta(hours=1, minutes=30)).isoformat(),

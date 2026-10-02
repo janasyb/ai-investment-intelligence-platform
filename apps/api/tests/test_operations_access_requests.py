@@ -84,6 +84,7 @@ def build_operator_session(
         role=role,
         email="operator@example.com",
         name="AIIP Operator",
+        csrf_token="test-csrf-token",
         created_at=now,
         expires_at=now.replace(
             year=now.year + 1,
@@ -241,6 +242,7 @@ def test_operator_can_update_access_request_status(
 ) -> None:
     response = client.patch(
         f"/api/v1/operations/access-requests/{access_request.id}/status",
+        headers={"X-CSRF-Token": "test-csrf-token"},
         json={"status": new_status},
     )
 
@@ -249,12 +251,54 @@ def test_operator_can_update_access_request_status(
     assert access_request.status == new_status
 
 
+def test_status_update_requires_csrf_token(
+    client: TestClient,
+    access_request: AccessRequest,
+) -> None:
+    response = client.patch(
+        f"/api/v1/operations/access-requests/{access_request.id}/status",
+        json={"status": "contacted"},
+    )
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "CSRF validation failed."
+
+
+def test_status_update_rejects_invalid_csrf_token(
+    client: TestClient,
+    access_request: AccessRequest,
+) -> None:
+    response = client.patch(
+        f"/api/v1/operations/access-requests/{access_request.id}/status",
+        headers={"X-CSRF-Token": "wrong-token"},
+        json={"status": "contacted"},
+    )
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "CSRF validation failed."
+
+
+def test_status_update_accepts_valid_csrf_token(
+    client: TestClient,
+    access_request: AccessRequest,
+) -> None:
+    response = client.patch(
+        f"/api/v1/operations/access-requests/{access_request.id}/status",
+        headers={"X-CSRF-Token": "test-csrf-token"},
+        json={"status": "contacted"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "contacted"
+
+
 def test_invalid_status_is_rejected(
     client: TestClient,
     access_request: AccessRequest,
 ) -> None:
     response = client.patch(
         f"/api/v1/operations/access-requests/{access_request.id}/status",
+        headers={"X-CSRF-Token": "test-csrf-token"},
         json={"status": "invalid-status"},
     )
 
@@ -268,6 +312,7 @@ def test_updating_missing_access_request_returns_404(
 
     response = client.patch(
         f"/api/v1/operations/access-requests/{missing_id}/status",
+        headers={"X-CSRF-Token": "test-csrf-token"},
         json={"status": "contacted"},
     )
 

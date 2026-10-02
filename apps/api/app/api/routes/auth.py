@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.responses import RedirectResponse
 
-from app.auth.dependencies import get_current_operator
+from app.auth.dependencies import get_current_operator, require_csrf
 from app.auth.oidc import (
     Auth0OIDCService,
     OIDCAuthenticationError,
@@ -163,6 +163,7 @@ async def session(
         "role": operator.role,
         "email": operator.email,
         "name": operator.name,
+        "csrf_token": operator.csrf_token,
         "expires_at": operator.expires_at,
         "last_seen_at": operator.last_seen_at,
     }
@@ -171,14 +172,10 @@ async def session(
 @router.post("/logout")
 async def logout(
     response: Response,
-    session_id: str | None = Cookie(
-        default=None,
-        alias=settings.auth0_session_cookie_name,
-    ),
+    operator: OperatorSession = Depends(require_csrf),
     session_store: OperatorSessionStore = Depends(get_operator_session_store),
 ) -> dict[str, bool]:
-    if session_id:
-        await session_store.delete(session_id)
+    await session_store.delete(operator.session_id)
 
     response.delete_cookie(
         key=settings.auth0_session_cookie_name,

@@ -4,7 +4,7 @@ import StatusSelect from "./StatusSelect";
 
 const ACCESS_REQUEST_PATH = "/api/v1/operations/access-requests";
 
-function AccessRequestDetail({ requestId, onBack }) {
+function AccessRequestDetail({ requestId, csrfToken, onBack }) {
   const [request, setRequest] = useState(null);
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
@@ -84,6 +84,7 @@ function AccessRequestDetail({ requestId, onBack }) {
           credentials: "same-origin",
           headers: {
             "Content-Type": "application/json",
+            "X-CSRF-Token": csrfToken,
           },
           body: JSON.stringify({
             status: nextStatus,

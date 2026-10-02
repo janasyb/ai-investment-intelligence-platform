@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.database import get_db_session
-from app.auth.dependencies import get_current_operator
+from app.auth.dependencies import get_current_operator, require_csrf
 from app.auth.session import OperatorSession
 from app.schemas.access_request import (
     AccessRequestStatusUpdate,
@@ -72,7 +72,7 @@ async def get_access_request(
 async def update_access_request_status(
     access_request_id: UUID,
     data: AccessRequestStatusUpdate,
-    _: OperatorSession = Depends(get_current_operator),
+    _: OperatorSession = Depends(require_csrf),
     session: AsyncSession = Depends(get_db_session),
 ) -> OperationsAccessRequestResponse:
     """Update an early-access request's operational status."""

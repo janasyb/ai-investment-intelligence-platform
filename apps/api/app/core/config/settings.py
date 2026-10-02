@@ -8,7 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import ClassVar
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from app.core.config.constants import (
@@ -26,6 +26,10 @@ from app.core.config.environments import Environment
 
 class Settings(BaseSettings):
     """Application configuration."""
+
+    DEVELOPMENT_SECRET_KEY: ClassVar[str] = (
+        "AIIP_DEVELOPMENT_ONLY_SECRET_KEY_DO_NOT_USE_IN_PRODUCTION_123456789"
+    )
 
     API_ROOT: ClassVar[Path] = Path(__file__).resolve().parents[3]
 
@@ -72,7 +76,7 @@ class Settings(BaseSettings):
     ########################################################
 
     secret_key: str = Field(
-        default="AIIP_DEVELOPMENT_ONLY_SECRET_KEY_DO_NOT_USE_IN_PRODUCTION_123456789",
+        default=DEVELOPMENT_SECRET_KEY,
         min_length=32,
     )
 
@@ -134,6 +138,43 @@ class Settings(BaseSettings):
     @property
     def is_testing(self) -> bool:
         return self.environment.is_testing
+
+    @model_validator(mode="after")
+    def validate_production_security(self) -> Settings:
+        """Prevent unsafe security configuration in production."""
+
+        if not self.is_production:
+            return self
+
+        if self.secret_key == self.DEVELOPMENT_SECRET_KEY:
+            raise ValueError("Production requires a non-default SECRET_KEY.")
+
+        if not self.auth0_secure_cookie:
+            raise ValueError("Production requires AUTH0_SECURE_COOKIE=true.")
+
+        if not self.frontend_url.startswith("https://"):
+            raise ValueError("Production requires FRONTEND_URL to use HTTPS.")
+
+        if not self.auth0_redirect_uri.startswith("https://"):
+            raise ValueError("Production requires AUTH0_REDIRECT_URI to use HTTPS.")
+
+        required_auth0_settings = {
+            "AUTH0_DOMAIN": self.auth0_domain,
+            "AUTH0_CLIENT_ID": self.auth0_client_id,
+            "AUTH0_CLIENT_SECRET": self.auth0_client_secret,
+            "AUTH0_REDIRECT_URI": self.auth0_redirect_uri,
+            "AUTH0_AUDIENCE": self.auth0_audience,
+            "AUTH0_OPERATOR_SUBJECT": self.auth0_operator_subject,
+        }
+
+        missing = [name for name, value in required_auth0_settings.items() if not value.strip()]
+
+        if missing:
+            raise ValueError(
+                "Production requires these authentication settings: " + ", ".join(missing)
+            )
+
+        return self
 
 
 @lru_cache

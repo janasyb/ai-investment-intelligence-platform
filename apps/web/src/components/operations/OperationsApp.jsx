@@ -66,6 +66,9 @@ function OperationsApp() {
       await fetch(AUTH_LOGOUT_PATH, {
         method: "POST",
         credentials: "same-origin",
+         headers: {
+        "X-CSRF-Token": session?.csrf_token || "",
+      },
       });
     } finally {
       window.location.assign("/operations");
@@ -158,6 +161,7 @@ function OperationsApp() {
         {selectedRequestId ? (
           <AccessRequestDetail
             requestId={selectedRequestId}
+            csrfToken={session?.csrf_token || ""}
             onBack={() => setSelectedRequestId(null)}
           />
         ) : (

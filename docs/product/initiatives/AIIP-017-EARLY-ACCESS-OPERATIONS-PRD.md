@@ -1,10 +1,10 @@
-ï»¿# AIIP-017 â€” EARLY ACCESS OPERATIONS
+# AIIP-017 — EARLY ACCESS OPERATIONS
 
 **Company:** AIIP Technologies  
 **Product:** AI Investment Intelligence Platform  
 **Initiative:** AIIP-017  
 **Version:** 1.0  
-**Status:** Draft for Approval  
+**Status:** Implemented and Validated
 **Type:** Internal Operations  
 **Priority:** High  
 **Date:** 2026-09-09
@@ -233,10 +233,10 @@ If new entities are necessary, their relationship to AccessRequest must be expli
 Use the existing architecture:
 
 Website
-â†’ FastAPI
-â†’ Service
-â†’ Repository
-â†’ PostgreSQL
+? FastAPI
+? Service
+? Repository
+? PostgreSQL
 
 Administrative functionality should use the existing backend architecture rather than introducing a second backend.
 
@@ -321,7 +321,7 @@ Authentication architecture:
 
 Product decision:
 
-`AIIP-D011 â€” Managed OIDC Authentication for Internal Operations`
+`AIIP-D011 — Managed OIDC Authentication for Internal Operations`
 
 ---
 
@@ -420,7 +420,7 @@ Tests should cover:
 
 ## Integration
 
-- API â†’ PostgreSQL
+- API ? PostgreSQL
 - administrative workflow persistence
 
 ---
@@ -444,7 +444,7 @@ Metrics should be added only when they support actual commercial-validation deci
 
 # 17. RISKS
 
-### Risk 1 â€” Premature CRM
+### Risk 1 — Premature CRM
 
 The system could become a general CRM.
 
@@ -452,7 +452,7 @@ Mitigation:
 
 Keep scope limited to AIIP early-access and customer-validation operations.
 
-### Risk 2 â€” Security Exposure
+### Risk 2 — Security Exposure
 
 Administrative data could be exposed publicly.
 
@@ -460,7 +460,7 @@ Mitigation:
 
 Require authentication/authorization before production exposure.
 
-### Risk 3 â€” Overengineering
+### Risk 3 — Overengineering
 
 Too much infrastructure could be created before the workflow is validated.
 
@@ -468,7 +468,7 @@ Mitigation:
 
 Build the smallest operational capability.
 
-### Risk 4 â€” Data Pollution
+### Risk 4 — Data Pollution
 
 Internal notes may accumulate unnecessary or sensitive information.
 
@@ -476,7 +476,7 @@ Mitigation:
 
 Define permitted information and prohibit credentials/secrets.
 
-### Risk 5 â€” Losing Commercial Focus
+### Risk 5 — Losing Commercial Focus
 
 Internal tooling could consume resources needed for customer validation.
 
@@ -583,10 +583,23 @@ Out of scope: DEFINED
 
 Acceptance criteria: DEFINED
 
-Security boundary: REQUIRES FINAL DESIGN DECISION
+Security boundary: Resolved and implemented
 
-Implementation: NOT YET AUTHORIZED
+Implementation: Authorized, implemented, tested, and validated
 
 ---
+
+### Implementation Validation
+
+AIIP-017 has been implemented and validated against the approved operational scope.
+
+The delivered security boundary includes:
+- Auth0 OIDC authentication
+- server-side Redis operator sessions
+- operator authorization enforced by the backend
+- session-bound CSRF protection for state-changing operations
+- explicit CORS configuration
+- production security configuration validation
+- automated authentication, authorization, security, integration, and configuration tests
 
 # END
