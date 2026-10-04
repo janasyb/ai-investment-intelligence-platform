@@ -4,7 +4,8 @@
 **Product:** AI Investment Intelligence Platform for Digital Assets  
 **Initiative:** AIIP-018  
 **Version:** 0.1  
-**Status:** Draft for Approval  
+**Status:** Approved for Implementation
+**Approval Date:** 2026-10-04
 **Type:** Commercial Validation  
 **Priority:** High  
 **Date:** 2026-10-02  
@@ -803,23 +804,28 @@ Existing Decision Intelligence Report materials should remain the source of repo
 
 # 20. IMPLEMENTATION AUTHORIZATION
 
-AIIP-018 is a commercial-validation initiative.
+AIIP-018 is approved for implementation within the bounded scope defined by this PRD.
 
-The first implementation slice, if approved, should be the smallest workflow required to conduct the validation.
+Implementation authorization applies only to the minimum workflow required to conduct the commercial-validation experiment.
 
-No production application feature is authorized solely by this draft.
+The approved implementation must:
 
-Before implementation begins, the following must be explicitly approved:
+- address the defined customer problem
+- test the defined commercial hypothesis
+- use the defined Decision Intelligence Report structure
+- use the defined payment-validation method
+- preserve the defined privacy and security boundary
+- remain within the approved scope
+- preserve all stated non-goals
+- satisfy the defined acceptance criteria
+- collect the defined validation evidence
 
-- customer problem
-- commercial hypothesis
-- report definition
-- payment-validation method
-- privacy boundary
-- scope
-- non-goals
-- acceptance criteria
-- validation evidence standard
+Implementation authorization does not authorize automated trading, portfolio management,
+customer-account expansion, payment-processing infrastructure, CRM replacement,
+automated research agents, or any other out-of-scope capability.
+
+The initial report-production workflow must remain manual and human-reviewed unless a
+separate approved initiative explicitly changes that boundary.
 
 ---
 
@@ -848,47 +854,47 @@ AIIP-018 is complete only when:
 
 ## Product Objective
 
-DEFINED
+APPROVED
 
 ## Customer Problem
 
-DEFINED
+APPROVED
 
 ## Core Hypothesis
 
-DEFINED
+APPROVED
 
 ## Report Definition
 
-DEFINED
+APPROVED
 
 ## Payment Validation
 
-DEFINED AS A HYPOTHESIS
+APPROVED AS A VALIDATION HYPOTHESIS
 
 ## Privacy Boundary
 
-DEFINED
+APPROVED
 
 ## Scope
 
-DEFINED
+APPROVED
 
 ## Out of Scope
 
-DEFINED
+APPROVED
 
 ## Acceptance Criteria
 
-DEFINED
+APPROVED
 
 ## Security Boundary
 
-REQUIRES FINAL APPROVAL
+APPROVED
 
 ## Implementation
 
-NOT YET AUTHORIZED
+AUTHORIZED - BOUNDED SCOPE ONLY
 
 ---
 
