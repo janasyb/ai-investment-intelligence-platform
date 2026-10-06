@@ -1,4 +1,4 @@
-﻿# AIIP Customer Discovery Findings
+# AIIP Customer Discovery Findings
 
 ## Status
 
@@ -6,7 +6,11 @@ EARLY DISCOVERY
 
 ## Current Sample
 
-The current research sample consists of investment-related posts discovered primarily on X and Reddit.
+The current research sample consists of historical investment-related posts discovered primarily on X and Reddit.
+
+The existing August 2026 signals are retained as historical discovery evidence but are not eligible
+for the current AIIP-018 commercial-validation experiment unless the underlying decision is
+revalidated through current interaction.
 
 ## Current Pattern
 
@@ -39,7 +43,7 @@ More customer interviews are required.
 
 Find at least:
 
-20 qualified customer signals
+20 fresh qualified customer signals
 
 10 meaningful conversations
 
@@ -48,6 +52,22 @@ Find at least:
 3 solution tests
 
 1 paying customer
+
+## AIIP-018 Current Validation Rule
+
+The current AIIP-018 commercial-validation experiment requires fresh prospects.
+
+A historical signal may be used only after the underlying decision is revalidated.
+
+The current target is:
+
+1. 20 fresh qualified customer signals
+2. 10 meaningful conversations
+3. 5 confirmed recurring problems
+4. 3 solution tests
+5. 1 paying customer
+
+Do not treat old non-responsive signals as active candidates.
 
 ## Decision Rule
 
