@@ -13,11 +13,11 @@
 ## 2. Current Git State
 
 - **Branch:** `feature/AIIP-018-decision-intelligence-report-commercial-validation`
-- **Latest commit:** `5f6917f`
-- **Latest commit message:** `docs(aiip-018): record artifact workflow completion`
+- **Latest commit:** `cc6b713`
+- **Latest commit message:** `feat(customer-discovery): enforce signal freshness for AIIP-018`
 - **Working tree at handoff:** clean
 - **Remote:** `https://github.com/janasyb/ai-investment-intelligence-platform.git`
-- **Branch push status:** latest handoff commit pushed to origin
+- **Branch push status:** latest customer-discovery change pushed to origin
 - **Main baseline:** `4374bdd`
 - **Previous completed implementation:** AIIP-017
 
@@ -282,6 +282,26 @@ AIIP-018 completion requires:
 - Prefer the smallest reversible implementation that enables the first validation experiment.
 
 ## 15. Explicit Next Task
+
+Begin fresh-signal acquisition for the AIIP-018 commercial-validation experiment.
+
+The existing August 2026 leads are retained as historical discovery evidence and are marked
+STALE / NOT ELIGIBLE unless their underlying decisions are revalidated.
+
+The next operational workflow is:
+
+1. discover fresh digital-asset investment signals
+2. qualify the signal
+3. conduct current outreach
+4. confirm a current investment decision
+5. conduct the discovery interview
+6. scope a Decision Intelligence Report only after qualification
+
+Do not create a customer-specific AIIP-018 validation record until a prospect has been
+independently qualified and the underlying decision has been confirmed as current.
+
+Do not implement broader report generation, payment processing, customer accounts, automated
+research, or unrelated platform capabilities.
 
 Use the completed AIIP-018 commercial-validation artifact workflow to conduct the first real validation
 experiment.
