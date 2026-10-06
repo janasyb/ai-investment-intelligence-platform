@@ -13,11 +13,11 @@
 ## 2. Current Git State
 
 - **Branch:** `feature/AIIP-018-decision-intelligence-report-commercial-validation`
-- **Latest commit:** `44af33f`
-- **Latest commit message:** `docs(aiip-018): approve commercial validation implementation`
+- **Latest commit:** `ed084c8`
+- **Latest commit message:** `feat(aiip-018): establish commercial validation artifact workflow`
 - **Working tree at handoff:** clean
 - **Remote:** `https://github.com/janasyb/ai-investment-intelligence-platform.git`
-- **Branch push status:** approval commit not yet pushed
+- **Branch push status:** latest implementation commit pushed to origin
 - **Main baseline:** `4374bdd`
 - **Previous completed implementation:** AIIP-017
 
@@ -258,9 +258,9 @@ AIIP-018 completion requires:
 
 ### Not completed
 
-- AIIP-018 implementation has not started
-- AIIP-018 approval branch has not yet been pushed
-- first validation workflow implementation slice has not yet been selected
+- AIIP-018 first implementation slice completed: commercial-validation artifact workflow
+- AIIP-018 branch is pushed and synchronized with origin
+- first validation workflow implementation slice selected and implemented
 - no Decision Intelligence Report has yet been produced under AIIP-018
 
 ## 13. Known Issues / Blockers
@@ -283,17 +283,15 @@ AIIP-018 completion requires:
 
 ## 15. Explicit Next Task
 
-Inspect the existing Decision Intelligence Report and customer-discovery artifacts and determine the
-smallest production-quality implementation slice required to conduct the first AIIP-018 commercial
-validation experiment.
+Use the completed AIIP-018 commercial-validation artifact workflow to conduct the first real validation
+experiment.
 
-The next implementation decision must identify:
+The next operational task is to qualify a real prospect, conduct the discovery interview, and determine
+whether a genuine current digital-asset investment decision exists that can be scoped for the Decision
+Intelligence Report experiment.
 
-1. existing artifacts that can be reused without modification
-2. artifacts that must be added or updated
-3. whether application/database changes are actually necessary
-4. the minimum authorized implementation surface
-5. the tests and validation required for that slice
+Do not create a report, offer, payment record, or customer-specific validation record until the prospect
+has been independently qualified and the real decision has been established.
 
 Do not implement broader report generation, payment processing, customer accounts, automated research,
 or unrelated platform capabilities.
