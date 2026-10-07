@@ -13,11 +13,11 @@
 ## 2. Current Git State
 
 - **Branch:** `feature/AIIP-018-decision-intelligence-report-commercial-validation`
-- **Latest commit:** `cc6b713`
-- **Latest commit message:** `feat(customer-discovery): enforce signal freshness for AIIP-018`
-- **Working tree at handoff:** clean
+- **Latest substantive commit at handoff:** `936758c`
+- **Latest substantive commit message:** `feat(customer-discovery): record AIIP-018 outreach activity`
+- **Working tree before handoff update:** clean
 - **Remote:** `https://github.com/janasyb/ai-investment-intelligence-platform.git`
-- **Branch push status:** latest customer-discovery change pushed to origin
+- **Branch push status:** `936758c` and all preceding AIIP-018 changes pushed to origin
 - **Main baseline:** `4374bdd`
 - **Previous completed implementation:** AIIP-017
 
@@ -25,9 +25,9 @@
 
 ## 3. Current Workstream
 
-**AIIP-018 — Decision Intelligence Report Commercial Validation**
+**AIIP-018 - Decision Intelligence Report Commercial Validation**
 
-Status: **Approved for Implementation; implementation not yet started**
+Status: **Approved; commercial-validation workflow implemented; first real validation experiment in progress**
 
 AIIP-018 is the current authorized commercial-validation initiative.
 
@@ -249,20 +249,38 @@ AIIP-018 completion requires:
 
 ### Completed
 
-- AIIP-018 PRD created
+- AIIP-018 PRD created and formally approved
 - malformed progression encoding corrected
-- commercial-validation payment evidence rule added
-- AIIP-018 PRD formally approved
-- implementation authorization established as bounded scope
-- approval committed as `44af33f`
+- commercial-validation payment evidence rule established
+- AIIP-018 bounded implementation authorization established
+- commercial-validation artifact workflow implemented
+- customer input template implemented
+- Decision Intelligence Report template implemented
+- research review checklist implemented
+- validation record template implemented
+- signal freshness policy implemented and documented
+- fresh AIIP-018 validation signals recorded
+- Lead 010 identified as a fresh current-validation prospect
+- Lead 010 outreach recorded as `OUT-001`
+- Lead 010 marked `Contacted = Yes`
+- OUT-001 recorded as `Sent`
+- consent/contact preference recorded as `Not specified`
+- latest substantive AIIP-018 commit at handoff: `936758c`
 
 ### Not completed
 
-- AIIP-018 first implementation slice completed: commercial-validation artifact workflow
-- AIIP-018 branch is pushed and synchronized with origin
-- first validation workflow implementation slice selected and implemented
-- no Decision Intelligence Report has yet been produced under AIIP-018
-
+- Lead 010 independent qualification
+- confirmation of Lead 010's current investment decision through conversation
+- discovery interview
+- customer-specific report scope
+- customer-specific Decision Intelligence Report
+- human review of a customer-specific report
+- report delivery
+- payment offer
+- completed payment transaction
+- post-delivery evidence
+- commercial validation finding
+- next product decision based on customer evidence
 ## 13. Known Issues / Blockers
 
 - Python 3.16 `WindowsSelectorEventLoopPolicy` deprecation warnings remain in the test configuration.
@@ -283,39 +301,38 @@ AIIP-018 completion requires:
 
 ## 15. Explicit Next Task
 
-Begin fresh-signal acquisition for the AIIP-018 commercial-validation experiment.
+Continue the first AIIP-018 commercial-validation experiment using Lead 010.
 
-The existing August 2026 leads are retained as historical discovery evidence and are marked
-STALE / NOT ELIGIBLE unless their underlying decisions are revalidated.
+Current operational state:
 
-The next operational workflow is:
+`Fresh Signal`
+-> `Outreach Sent`
+-> `Awaiting Response`
+-> `Qualification`
+-> `Discovery Interview`
+-> `Report Scope`
+-> `Report`
+-> `Delivery`
+-> `Payment`
+-> `Post-Delivery Evidence`
 
-1. discover fresh digital-asset investment signals
-2. qualify the signal
-3. conduct current outreach
-4. confirm a current investment decision
-5. conduct the discovery interview
-6. scope a Decision Intelligence Report only after qualification
+The immediate next task is to observe the response to OUT-001.
 
-Do not create a customer-specific AIIP-018 validation record until a prospect has been
-independently qualified and the underlying decision has been confirmed as current.
+If Lead 010 responds:
 
-Do not implement broader report generation, payment processing, customer accounts, automated
-research, or unrelated platform capabilities.
+1. confirm whether the investment decision is still current
+2. establish the actual decision, asset, timeframe, uncertainty, and research need
+3. conduct the discovery interview
+4. determine whether the prospect qualifies for the Decision Intelligence Report experiment
+5. create a customer-specific validation record only after qualification
 
-Use the completed AIIP-018 commercial-validation artifact workflow to conduct the first real validation
-experiment.
+If there is no response, use only the defined respectful follow-up window. OUT-001 follow-up is due `2026-10-10`. Do not repeatedly contact a non-responsive prospect.
 
-The next operational task is to qualify a real prospect, conduct the discovery interview, and determine
-whether a genuine current digital-asset investment decision exists that can be scoped for the Decision
-Intelligence Report experiment.
+Do not create a report, payment record, customer-specific validation record, or broader product capability until the required customer evidence exists.
 
-Do not create a report, offer, payment record, or customer-specific validation record until the prospect
-has been independently qualified and the real decision has been established.
+Do not implement payment processing, customer accounts, automated research, trading, portfolio management, or other out-of-scope functionality.
 
-Do not implement broader report generation, payment processing, customer accounts, automated research,
-or unrelated platform capabilities.
-
+The next engineering change, if any, must be justified by actual customer-validation evidence rather than assumed product requirements.
 ## 16. Mandatory Next-Session Procedure
 
 The next ChatGPT session must:
@@ -324,15 +341,15 @@ The next ChatGPT session must:
 2. Read this file.
 3. Verify the actual Git state.
 4. Inspect the approved AIIP-018 PRD.
-5. Inspect relevant customer-discovery and Decision Intelligence Report artifacts.
-6. Inspect relevant ADRs and source files.
-7. Confirm the exact smallest authorized implementation slice.
-8. Implement only that slice.
-9. Add or update tests.
-10. Run formatter, linter, type checker, tests, build, and `git diff --check` as applicable.
-11. Update this file before handoff.
-12. Keep the completed handoff state clean and auditable.
-
+5. Inspect the current customer-discovery, outreach, and Decision Intelligence Report artifacts.
+6. Inspect the latest customer-validation evidence and outreach status.
+7. Determine whether a real customer response now authorizes the next validation step.
+8. If customer evidence does not authorize a new implementation slice, do not start unrelated engineering.
+9. If a new implementation slice is authorized, implement only that smallest bounded slice.
+10. Add or update tests where code changes are made.
+11. Run formatter, linter, type checker, tests, build, and `git diff --check` as applicable.
+12. Update this file before handoff.
+13. Keep the completed handoff state clean and auditable.
 ## 17. Source-of-Truth Rule
 
 The repository, passing tests/CI, Git history, approved specifications, and this handoff system are
