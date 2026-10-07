@@ -1,5 +1,13 @@
 # AIIP Customer Input
 
+## Validation Reference
+
+Customer / Prospect Reference:
+
+Do not use unnecessary personally identifying information. Use an internal reference where practical.
+
+---
+
 ## Digital Asset
 
 Asset:
@@ -14,6 +22,14 @@ Choose one:
 - WAIT
 - OTHER
 
+Decision being evaluated:
+
+## Decision Timeframe
+
+When does the customer expect to make or revisit the decision?
+
+Timeframe:
+
 ## Time Horizon
 
 Examples:
@@ -26,18 +42,72 @@ Examples:
 
 Time horizon:
 
-## Primary Concern
+---
 
-What is the main thing you want AIIP to help you understand?
+## Decision Question
 
-## Optional Context
+What specific question does the customer need AIIP to help research?
 
-Provide any additional information you believe is relevant.
+Decision question:
+
+## Stated Investment Thesis
+
+What does the customer currently believe about the asset or decision?
+
+Thesis:
+
+## Primary Concerns
+
+What are the customer's main concerns or uncertainties?
+
+Concerns:
+
+## Research Questions
+
+What specifically does the customer want investigated?
+
+Research questions:
+
+## Alternatives Being Considered
+
+What other assets, actions, or alternatives are being considered?
+
+Alternatives:
+
+## Evidence Already Considered
+
+What information, sources, tools, analysts, communities, or research has the customer already used?
+
+Existing evidence / sources:
+
+## Desired Report Focus
+
+What should receive the greatest research attention?
+
+Desired focus:
+
+## Additional Context
+
+Provide only information that is relevant to the stated decision.
+
+Additional context:
 
 ---
 
-# Important
+# Important Security and Privacy Boundary
 
-Do not provide private keys, seed phrases, passwords, exchange credentials, or other security credentials.
+Do not provide:
 
-AIIP does not require access to customer wallets or exchange accounts for this V0 research service.
+- private keys
+- seed phrases
+- passwords
+- exchange credentials
+- wallet credentials
+- API secrets
+- authentication codes
+- financial-account credentials
+- unnecessary sensitive personal information
+
+AIIP does not require access to customer wallets, exchanges, accounts, or credentials for this validation workflow.
+
+Only collect information necessary to conduct the defined research.

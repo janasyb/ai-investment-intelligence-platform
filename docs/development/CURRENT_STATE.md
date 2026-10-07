@@ -12,203 +12,351 @@
 
 ## 2. Current Git State
 
-- **Branch:** `main`
-- **Latest commit:** `d8dd21c`
-- **Latest commit message:** `fix(aiip-017): harden internal operations security`
-- **Previous major merge:** `e68a57b`
-- **Working tree at handoff:** clean
+- **Branch:** `feature/AIIP-018-decision-intelligence-report-commercial-validation`
+- **Latest substantive commit at handoff:** `936758c`
+- **Latest substantive commit message:** `feat(customer-discovery): record AIIP-018 outreach activity`
+- **Working tree before handoff update:** clean
 - **Remote:** `https://github.com/janasyb/ai-investment-intelligence-platform.git`
-- **GitHub Actions:** successful for `d8dd21c` (`AIIP CI` run #64)
+- **Branch push status:** `936758c` and all preceding AIIP-018 changes pushed to origin
+- **Main baseline:** `4374bdd`
+- **Previous completed implementation:** AIIP-017
 
 > Verify all Git fields at the beginning of a new session. These values are a starting snapshot, not permanent truth.
 
 ## 3. Current Workstream
 
-**AIIP-017 — Early Access Operations**
+**AIIP-018 - Decision Intelligence Report Commercial Validation**
 
-Status: **Implemented, Security-Hardened, Validated, and Merged**
+Status: **Approved; commercial-validation workflow implemented; first real validation experiment in progress**
 
-AIIP-017 established the minimum internal operational capability required to manage early-access requests and support customer validation.
+AIIP-018 is the current authorized commercial-validation initiative.
 
-The implementation remains intentionally limited to internal early-access operations and does not introduce a general CRM, customer-account platform, trading system, portfolio-management system, or broad administration platform.
+Its purpose is to determine whether AIIP can create sufficiently valuable investment decision
+intelligence for a real digital-asset decision maker to pay for a Decision Intelligence Report.
 
-## 4. Delivered AIIP-017 Capability
+The initial workflow is intentionally manual and human-reviewed.
 
-### Internal operations
+## 4. AIIP-018 Approved Objective
 
-- Operations UI at `/operations`
-- Access-request list
-- Access-request detail view
-- Operational status updates
-- Logout flow
-- Backend-enforced operator authorization
+Validate the following progression:
 
-### Authentication and session security
+`Real Signal`
+-> `Qualified Decision Maker`
+-> `Real Investment Decision`
+-> `Customer Input`
+-> `Research`
+-> `Decision Intelligence Report`
+-> `Customer Delivery`
+-> `Customer Use`
+-> `Payment`
+-> `Post-Delivery Evidence`
 
+The commercial hypothesis is not validated by verbal interest alone.
+
+An actual completed commercial transaction is required to support the core monetization hypothesis.
+
+The absence of payment is valid commercial evidence and must be recorded rather than treated as
+an implementation failure.
+
+## 5. Approved AIIP-018 Scope
+
+### Customer qualification
+
+- identify a real digital-asset decision maker
+- confirm a current or sufficiently recent investment decision
+- establish a meaningful research need
+- establish that the customer can review a delivered report
+
+### Customer input
+
+Collect only information necessary to produce the report, including where applicable:
+
+- asset under consideration
+- decision type
+- decision timeframe
+- stated thesis
+- main concerns
+- research questions
+- existing evidence or sources
+- alternatives being considered
+- desired report focus
+- delivery details
+
+### Report production
+
+The initial Decision Intelligence Report must remain:
+
+- manually produced
+- human-reviewed
+- evidence-first
+- source-aware
+- transparent about uncertainty
+- bounded to the customer's stated decision
+
+### Commercial validation
+
+- initial experiment price: **USD 49 per report**
+- price is a validation hypothesis, not a permanent product price
+- payment must be an actual completed commercial transaction
+- payment-processing infrastructure is not authorized
+
+### Customer evaluation
+
+Capture post-delivery evidence concerning:
+
+- report review
+- usefulness
+- unclear sections
+- new evidence
+- contradictory evidence
+- decision-process impact
+- time/research friction
+- missing information
+- repeat demand
+
+## 6. Explicit AIIP-018 Non-Goals
+
+The initiative does not authorize:
+
+- automated trading
+- trading execution
+- exchange integration
+- custody
+- wallet management
+- portfolio management
+- automated investment recommendations
+- autonomous financial decision-making
+- customer-account expansion
+- subscription billing infrastructure
+- payment-processing infrastructure
+- CRM replacement
+- marketing automation
+- email automation
+- mobile applications
+- social platforms
+- chatbot infrastructure
+- large-scale analytics
+- automated research agents
+- broad AI infrastructure
+- institutional platform features
+
+The initial report-production process must remain manual and human-reviewed unless a separate
+approved initiative explicitly changes that boundary.
+
+## 7. Security and Privacy Boundary
+
+AIIP-018 must:
+
+- minimize customer data collection
+- prohibit passwords
+- prohibit private keys
+- prohibit seed phrases
+- prohibit exchange credentials
+- prohibit wallet credentials
+- prohibit API secrets
+- prohibit authentication codes
+- avoid unnecessary financial-account information
+- protect customer research information
+- distinguish customer-provided information from sourced information
+- preserve source traceability
+- prevent secrets from entering repository files or logs
+
+No new customer-authentication system is authorized by AIIP-018.
+
+The existing internal operator authentication boundary established by AIIP-017 remains separate
+from the customer-validation workflow.
+
+## 8. Existing AIIP Foundations
+
+### AIIP-016
+
+Productionized early-access request collection and persistence.
+
+### AIIP-017
+
+Implemented and security-hardened internal early-access operations, including:
+
+- operations UI
+- access-request list and detail
+- operational status updates
 - Auth0 OIDC authentication
-- OIDC state validation
-- OIDC nonce validation
-- PKCE
-- ID-token signature/issuer/audience validation
-- Explicit `AUTH0_OPERATOR_SUBJECT` authorization boundary
-- Server-side Redis-backed operator sessions
-- Opaque session identifiers
-- Absolute session expiration
-- Idle session expiration
-- HttpOnly session cookie
-- SameSite cookie policy
-- Secure-cookie requirement in production
-- Server-side session invalidation on logout
+- backend operator authorization
+- Redis-backed server sessions
+- HttpOnly session cookies
+- CSRF protection
+- explicit CORS
+- production configuration safeguards
 
-### CSRF and CORS
+AIIP-017 remains complete and should not be expanded as part of AIIP-018.
 
-- Independently generated session-bound CSRF token
-- `X-CSRF-Token` validation for state-changing operator operations
-- CSRF protection on access-request status updates
-- CSRF protection on logout
-- Explicit CORS configuration
-- Configured frontend origin only
-- Credentialed browser requests supported
-- `X-CSRF-Token` permitted for preflight requests
+## 9. Customer Discovery Context
 
-### Production configuration safeguards
-
-Production configuration rejects:
-
-- default development `SECRET_KEY`
-- non-secure operator cookies
-- non-HTTPS frontend URLs
-- non-HTTPS Auth0 callback URLs
-- incomplete required Auth0 operator configuration
-
-## 5. Validation Status
-
-### Local validation
-
-- **Pytest:** PASS — 55 passed
-- **Ruff:** PASS
-- **Black:** PASS
-- **Mypy:** PASS — 82 source files
-- **Frontend production build:** PASS
-- **`git diff --check`:** PASS
-- **Working tree:** CLEAN
-
-### CI validation
-
-- **Workflow:** `AIIP CI`
-- **Run:** `#64`
-- **Commit:** `d8dd21c`
-- **Branch:** `main`
-- **Status:** SUCCESS
-- **API Quality:** PASS
-- **API Docker:** PASS
-
-### Known test warnings
-
-Two existing Python 3.16 deprecation warnings remain from:
-
-`apps/api/tests/conftest.py`
-
-They concern `asyncio.WindowsSelectorEventLoopPolicy` and are not part of the AIIP-017 security implementation.
-
-## 6. Customer Discovery Context
-
-AIIP's broader commercial-validation strategy remains:
+AIIP's commercial-validation strategy remains:
 
 `X + Reddit + LinkedIn`
-→ `AIIP Research & Insights`
-→ `FREE intelligence`
-→ `AIIP website`
-→ `Email / free account`
-→ `AIIP V1`
-→ `PAID CUSTOMER`
+-> `AIIP Research & Insights`
+-> `FREE intelligence`
+-> `AIIP website`
+-> `Email / free account`
+-> `AIIP V1`
+-> `PAID CUSTOMER`
 
-Current product-validation concept:
+Existing customer-discovery evidence progression:
 
-**Decision Intelligence Report**
+`Signal -> Qualification -> Outreach -> Conversation -> Interview -> Product Test -> Payment`
 
-Evidence progression:
+AIIP-018 extends this into the concrete Decision Intelligence Report commercial-validation workflow.
 
-`Signal → Qualification → Outreach → Conversation → Interview → Product Test → Payment`
+## 10. AIIP-018 Required Artifacts
 
-The current objective is still to validate a sufficiently important digital-asset investment decision problem through real customer evidence rather than hypothetical interest.
+Expected validation artifacts include:
 
-## 7. Current Objective
+- customer qualification record
+- customer interview record
+- report scope
+- customer input
+- completed Decision Intelligence Report
+- source/evidence record
+- payment-validation record
+- post-delivery feedback
+- validation finding
+- next-step decision
 
-AIIP-017 is complete.
+Existing Decision Intelligence Report materials remain authoritative for report-format detail unless
+AIIP-018 explicitly changes them.
 
-The next development objective must be established from an approved specification rather than inferred from implementation momentum.
+## 11. Validation Requirements
 
-No new product module is currently authorized for implementation until the next initiative's requirements, scope, architecture, acceptance criteria, and security boundary are explicitly established and approved.
+AIIP-018 completion requires:
 
-## 8. Explicit Next Task
+- approved requirements
+- documented validation workflow
+- real customer qualification
+- real investment decision
+- sufficient customer input
+- completed Decision Intelligence Report
+- human review
+- report delivery
+- post-delivery evidence
+- payment validation attempt
+- commercial evidence record
+- updated customer-discovery records
+- documented findings
+- documented next product decision
+- no unauthorized product expansion
 
-- **Task:** Define and obtain approval for the next AIIP development initiative before implementation.
-- **Specification:** The next approved initiative specification in `docs/product/initiatives/` and any related ADRs.
-- **Expected outcome:** A bounded, implementation-ready initiative with explicit acceptance criteria and authorized scope.
-- **Acceptance criteria:** Requirements, scope, architecture/security boundary, testing strategy, and Definition of Done documented and approved.
-- **Blocked by:** Next initiative specification/approval.
-
-## 9. Active Files
-
-The next session should inspect these first:
-
-1. `docs/development/CHATGPT_DEVELOPMENT_HANDOFF.md`
-2. `docs/development/CURRENT_STATE.md`
-3. The next approved initiative specification in `docs/product/initiatives/`
-4. Relevant ADRs in `docs/adr/`
-5. Actual Git/source state before making changes
-
-## 10. Known Issues / Blockers
-
-- Python 3.16 `WindowsSelectorEventLoopPolicy` deprecation warnings remain in the test configuration.
-- Auth0 client secret previously exposed during development must be rotated before production use.
-- Real production deployment credentials and infrastructure configuration are not represented by `.env.example`.
-
-## 11. Decisions Requiring Attention
-
-- Do not begin the next implementation initiative until its specification and security/architecture boundaries are explicitly approved.
-- Do not mark AIIP production-ready solely from development/CI validation.
-- Treat the repository and current Git state as authoritative over older conversation context.
-
-## 12. Last Session Summary
+## 12. Current Validation State
 
 ### Completed
 
-- Completed AIIP-017 Early Access Operations.
-- Added session-bound CSRF protection.
-- Added CSRF protection to status updates and logout.
-- Added explicit CORS configuration.
-- Added production configuration security validation.
-- Added authentication, security, and settings tests.
-- Updated frontend operations flow to send the CSRF token.
-- Updated AIIP-017 PRD and technical design to implemented/validated status.
-- Passed 55 automated tests.
-- Passed Ruff, Black, Mypy, frontend production build, and `git diff --check`.
-- Committed as `d8dd21c`.
-- Pushed to `main`.
-- Confirmed GitHub Actions CI run #64 succeeded.
+- AIIP-018 PRD created and formally approved
+- malformed progression encoding corrected
+- commercial-validation payment evidence rule established
+- AIIP-018 bounded implementation authorization established
+- commercial-validation artifact workflow implemented
+- customer input template implemented
+- Decision Intelligence Report template implemented
+- research review checklist implemented
+- validation record template implemented
+- signal freshness policy implemented and documented
+- fresh AIIP-018 validation signals recorded
+- Lead 010 identified as a fresh current-validation prospect
+- Lead 010 outreach recorded as `OUT-001`
+- Lead 010 marked `Contacted = Yes`
+- OUT-001 recorded as `Sent`
+- consent/contact preference recorded as `Not specified`
+- latest substantive AIIP-018 commit at handoff: `936758c`
 
 ### Not completed
 
-- Next AIIP initiative has not yet been authorized for implementation.
+- Lead 010 independent qualification
+- confirmation of Lead 010's current investment decision through conversation
+- discovery interview
+- customer-specific report scope
+- customer-specific Decision Intelligence Report
+- human review of a customer-specific report
+- report delivery
+- payment offer
+- completed payment transaction
+- post-delivery evidence
+- commercial validation finding
+- next product decision based on customer evidence
+## 13. Known Issues / Blockers
 
-### Important observations
+- Python 3.16 `WindowsSelectorEventLoopPolicy` deprecation warnings remain in the test configuration.
+- Auth0 client secret previously exposed during development must be rotated before production use.
+- Real production credentials and infrastructure configuration are not represented by `.env.example`.
+- No AIIP-018 production capability should be implemented outside the approved PRD scope.
 
-- AIIP-017 is complete and should not be expanded with unrelated functionality.
-- The existing Python 3.16 warnings are separate maintenance work.
-- Production use requires rotation of the previously exposed Auth0 client secret.
+## 14. Decisions Requiring Attention
 
-## 13. Next Session Instruction
+- Keep AIIP-018 manual and human-reviewed during commercial validation.
+- Do not build payment infrastructure merely to test willingness to pay.
+- Treat actual payment as the core monetization evidence.
+- Treat non-payment as valid commercial evidence.
+- Do not interpret one USD 49 transaction as proof that USD 49 is the final or scalable price.
+- Do not expand into CRM, customer accounts, automation, trading, portfolio management, or other
+  out-of-scope capabilities.
+- Prefer the smallest reversible implementation that enables the first validation experiment.
+
+## 15. Explicit Next Task
+
+Continue the first AIIP-018 commercial-validation experiment using Lead 010.
+
+Current operational state:
+
+`Fresh Signal`
+-> `Outreach Sent`
+-> `Awaiting Response`
+-> `Qualification`
+-> `Discovery Interview`
+-> `Report Scope`
+-> `Report`
+-> `Delivery`
+-> `Payment`
+-> `Post-Delivery Evidence`
+
+The immediate next task is to observe the response to OUT-001.
+
+If Lead 010 responds:
+
+1. confirm whether the investment decision is still current
+2. establish the actual decision, asset, timeframe, uncertainty, and research need
+3. conduct the discovery interview
+4. determine whether the prospect qualifies for the Decision Intelligence Report experiment
+5. create a customer-specific validation record only after qualification
+
+If there is no response, use only the defined respectful follow-up window. OUT-001 follow-up is due `2026-10-10`. Do not repeatedly contact a non-responsive prospect.
+
+Do not create a report, payment record, customer-specific validation record, or broader product capability until the required customer evidence exists.
+
+Do not implement payment processing, customer accounts, automated research, trading, portfolio management, or other out-of-scope functionality.
+
+The next engineering change, if any, must be justified by actual customer-validation evidence rather than assumed product requirements.
+## 16. Mandatory Next-Session Procedure
 
 The next ChatGPT session must:
 
 1. Read `docs/development/CHATGPT_DEVELOPMENT_HANDOFF.md`.
 2. Read this file.
-3. Verify the actual Git state against this snapshot.
-4. Inspect the next approved initiative specification.
-5. Verify relevant ADRs and source files.
-6. Confirm the exact authorized task.
-7. Implement only the approved scope.
-8. Validate the implementation.
-9. Update this file before handoff.
+3. Verify the actual Git state.
+4. Inspect the approved AIIP-018 PRD.
+5. Inspect the current customer-discovery, outreach, and Decision Intelligence Report artifacts.
+6. Inspect the latest customer-validation evidence and outreach status.
+7. Determine whether a real customer response now authorizes the next validation step.
+8. If customer evidence does not authorize a new implementation slice, do not start unrelated engineering.
+9. If a new implementation slice is authorized, implement only that smallest bounded slice.
+10. Add or update tests where code changes are made.
+11. Run formatter, linter, type checker, tests, build, and `git diff --check` as applicable.
+12. Update this file before handoff.
+13. Keep the completed handoff state clean and auditable.
+## 17. Source-of-Truth Rule
+
+The repository, passing tests/CI, Git history, approved specifications, and this handoff system are
+authoritative.
+
+Previous ChatGPT conversation context is supporting context only.
+
+Never override repository evidence with conversational assumptions.
+
+# END
