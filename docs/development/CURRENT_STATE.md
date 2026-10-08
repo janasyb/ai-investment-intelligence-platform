@@ -25,16 +25,28 @@
 
 ## 3. Current Workstream
 
-**AIIP-018 - Decision Intelligence Report Commercial Validation**
+AIIP-018 - Decision Intelligence Report Commercial Validation
 
-Status: **Approved; commercial-validation workflow implemented; first real validation experiment in progress**
+Status:
+Approved; commercial-validation workflow implemented; first real validation experiment in progress
 
-AIIP-018 is the current authorized commercial-validation initiative.
+Current Validation State:
+- Lead 010 contacted via OUT-001
+- Lead 011 contacted via OUT-002
+- Both remain PENDING QUALIFICATION
+- Both are awaiting customer response
+- No customer-specific report exists
+- No payment has occurred
+- No customer-specific validation record has been created
 
-Its purpose is to determine whether AIIP can create sufficiently valuable investment decision
-intelligence for a real digital-asset decision maker to pay for a Decision Intelligence Report.
+Immediate Next Task:
+Observe responses to OUT-001 and OUT-002.
 
-The initial workflow is intentionally manual and human-reviewed.
+Follow-up dates:
+OUT-001 → 2026-10-10
+OUT-002 → 2026-10-11
+
+Do not begin new product engineering unless customer evidence creates a justified requirement.
 
 ## 4. AIIP-018 Approved Objective
 
